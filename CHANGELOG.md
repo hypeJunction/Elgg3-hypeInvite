@@ -1,3 +1,26 @@
+<a name="2.0.0"></a>
+# 2.0.0 (2018-03-27)
+
+
+### Bug Fixes
+
+* **forms:** add an option to hide an invite code field ([493f0a2](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/493f0a2))
+* **friends:** announce new friendships on river ([da7bc26](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/da7bc26))
+* **friends:** correct friendship logic on user registration ([6ee0615](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/6ee0615))
+* **groups:** add invitations to parent groups ([55f8eb1](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/55f8eb1))
+* **groups:** create an invitation before joining a group ([21f2082](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/21f2082))
+* **ux:** do not include invite code in notifications if form field is hidden ([0d41a8f](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/0d41a8f))
+* **ux:** improve the UX of automatic acceptance of invitations ([14653e5](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/14653e5))
+
+
+### Features
+
+* **register:** more efficient forwarding on registration ([169e77a](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/169e77a))
+* **releases:** initial commit ([76d07bc](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/76d07bc))
+* **releases:** upgrade for Elgg 3 ([b7d6101](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/b7d6101))
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/hypeJunction/hypeInvite/compare/1.0.2...v1.0.3) (2016-10-01)
 
