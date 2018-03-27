@@ -1,87 +1,75 @@
 <?php
 
 $entity = elgg_extract('entity', $vars);
+if (!$entity instanceof ElggGroup) {
+	return;
+}
 
-$tabs = array();
-$forms = '';
+$tabs = [];
 
 if (elgg_get_plugin_setting('groups_users_tab', 'hypeInvite', false)) {
-	$tabs['users'] = array(
+	$tabs['users'] = [
 		'text' => elgg_echo('groups:invite:users'),
-		'href' => '#groups-invite-users',
 		'selected' => true,
-	);
-
-	$form = elgg_view('forms/groups/invite/users', $vars);
-	$forms .= elgg_format_element('div', ['id' => 'groups-invite-users'], $form);
+		'content' => elgg_view('forms/groups/invite/users', $vars),
+	];
 } else {
-	$tabs['friends'] = array(
+	$tabs['friends'] = [
 		'text' => elgg_echo('groups:invite:friends'),
-		'href' => '#groups-invite-friends',
 		'selected' => true,
-	);
-	$form = elgg_view('forms/groups/invite/friends', $vars);
-	$forms .= elgg_format_element('div', ['id' => 'groups-invite-friends'], $form);
+		'content' => elgg_view('forms/groups/invite/friends', $vars),
+	];
 }
 
 if (elgg_get_plugin_setting('groups_emails_tab', 'hypeInvite', false) && elgg_get_config('allow_registration')) {
-	$tabs['emails'] = array(
+	$tabs['emails'] = [
 		'text' => elgg_echo('groups:invite:emails'),
-		'href' => '#groups-invite-emails',
-	);
-	$form = elgg_view('forms/groups/invite/emails', $vars);
-	$forms .= elgg_format_element('div', [
-		'id' => 'groups-invite-emails',
-		'class' => 'hidden',
-			], $form);
+		'content' => elgg_view('forms/groups/invite/emails', $vars),
+	];
 }
 
-$tabs = elgg_view('navigation/tabs', array(
+echo elgg_view('page/components/tabs', [
 	'tabs' => $tabs,
-		));
+]);
 
-echo elgg_view('components/tabs', array(
-	'id' => 'groups-invite',
-	'tabs' => $tabs,
-	'content' => $forms,
-));
-
-echo elgg_view_input('plaintext', array(
+echo elgg_view_field([
+	'#type' => 'plaintext',
 	'name' => 'message',
-	'label' => elgg_echo('groups:invite:message'),
+	'#label' => elgg_echo('groups:invite:message'),
 	'rows' => 3,
-));
+]);
 
 if ($entity->canEdit()) {
-	$chbkx = elgg_format_element('input', array(
-		'type' => 'checkbox',
+	echo elgg_view_field([
+		'#type' => 'checkbox',
 		'name' => 'resend',
 		'default' => false,
-	));
-	$input = elgg_format_element('label', [], $chbkx . elgg_echo('groups:invite:resend'));
-	echo elgg_view('elements/forms/field', array(
-		'input' => $input,
-	));
+		'label' => elgg_echo('groups:invite:resend'),
+	]);
 }
 
 if ($entity->canEdit() && (!elgg_get_plugin_setting('groups_require_confirmation', 'hypeInvite') || elgg_is_admin_logged_in())) {
-	echo elgg_view_input('radio', array(
+	echo elgg_view_field([
+		'#type' => 'radio',
 		'name' => 'invite_action',
 		'value' => 'invite',
-		'options' => array(
+		'options' => [
 			elgg_echo('groups:invite:action:invite') => 'invite',
 			elgg_echo('groups:invite:action:add') => 'add'
-		),
-	));
+		],
+	]);
 }
 
-echo elgg_view_input('hidden', array(
+echo elgg_view_field([
+	'#type' => 'hidden',
 	'name' => 'guid',
 	'value' => $entity->guid,
-));
+]);
 
-echo elgg_view_input('submit', array(
+$footer = elgg_view_field([
+	'#type' => 'submit',
 	'value' => elgg_echo('groups:invite'),
-	'field_class' => 'elgg-foot',
-));
+]);
+
+elgg_set_form_footer($footer);
 

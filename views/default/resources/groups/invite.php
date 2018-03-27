@@ -22,7 +22,6 @@ if (!$group->canEdit() && (!$group->isMember() || $group->invites_enable !== 'ye
 
 $content = elgg_view_form('groups/invite', array(
 	'id' => 'invite_to_group',
-	'class' => 'elgg-form-alt mtm',
 ), array(
 	'entity' => $group,
 ));

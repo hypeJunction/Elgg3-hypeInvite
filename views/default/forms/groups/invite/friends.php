@@ -2,13 +2,14 @@
 
 $entity = elgg_extract('entity', $vars);
 
-echo elgg_view_input('tokeninput', array(
-	'name' => 'invitee_guids',
-	'label' => elgg_echo('groups:invite:friends:select'),
+echo elgg_view_field([
+	'#type' => 'autocomplete',
+	'#label' => elgg_echo('groups:invite:friends:select'),
 	'multiple' => true,
-	'callback' => '\\hypeJunction\\Invite\\InviteService::searchUsersForGroupsInvite',
-	'query' => [
+	'name' => 'invitee_guids',
+	'match_on' => 'non_group_members',
+	'options' => [
 		'group_guid' => $entity->guid,
 		'friends_only' => true,
 	],
-));
+]);

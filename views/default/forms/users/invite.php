@@ -2,36 +2,38 @@
 
 $entity = elgg_extract('entity', $vars);
 
-echo elgg_view_input('plaintext', array(
+echo elgg_view_field([
+	'#type' => 'plaintext',
 	'name' => 'emails',
-	'label' => elgg_echo('users:invite:emails:select'),
-	'help' => elgg_echo('users:invite:emails:select:help'),
+	'#label' => elgg_echo('users:invite:emails:select'),
+	'#help' => elgg_echo('users:invite:emails:select:help'),
 	'rows' => 3,
-));
+]);
 
-echo elgg_view_input('plaintext', array(
+echo elgg_view_field([
+	'#type' => 'plaintext',
 	'name' => 'message',
-	'label' => elgg_echo('users:invite:message'),
+	'#label' => elgg_echo('users:invite:message'),
 	'rows' => 3,
-));
+]);
 
-$chbkx = elgg_format_element('input', array(
-	'type' => 'checkbox',
+echo elgg_view_field([
+	'#type' => 'checkbox',
 	'name' => 'resend',
 	'default' => false,
-		));
-$input = elgg_format_element('label', [], $chbkx . elgg_echo('users:invite:resend'));
-echo elgg_view('elements/forms/field', array(
-	'input' => $input,
-));
+	'label' => elgg_echo('users:invite:resend'),
+]);
 
-echo elgg_view_input('hidden', array(
+echo elgg_view_field([
+	'#type' => 'hidden',
 	'name' => 'guid',
 	'value' => $entity->guid,
-));
+]);
 
-echo elgg_view_input('submit', array(
+$footer = elgg_view_field([
+	'#type' => 'submit',
 	'value' => elgg_echo('users:invite'),
-	'field_class' => 'elgg-foot',
-));
+]);
+
+elgg_set_form_footer($footer);
 
