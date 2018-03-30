@@ -1,3 +1,13 @@
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/compare/2.1.0...2.1.1) (2018-03-30)
+
+
+### Bug Fixes
+
+* **urls:** use invitation_code parameter name consistenly ([d919829](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/d919829))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/compare/2.0.0...2.1.0) (2018-03-30)
 
