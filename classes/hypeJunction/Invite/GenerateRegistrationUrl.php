@@ -66,7 +66,7 @@ class GenerateRegistrationUrl {
 			'e' => $email,
 			'ts' => $time,
 			'friend_guid' => $friend_guid,
-			'invitecode' => $invite_codes[0],
+			'invitation_code' => $invite_codes[0],
 		]);
 	}
 }

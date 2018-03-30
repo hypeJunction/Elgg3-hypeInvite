@@ -18,7 +18,7 @@ if ($show_field) {
 	echo elgg_view_field([
 		'#type' => 'text',
 		'name' => 'invitation_code',
-		'value' => elgg_extract('invitecode', $vars, get_input('invitecode')),
+		'value' => elgg_extract('invitation_code', $vars, get_input('invitation_code')),
 		'#label' => elgg_echo('users:invite:invitation_code'),
 		'required' => $required,
 		'#help' => $help,
@@ -27,7 +27,7 @@ if ($show_field) {
 	echo elgg_view_field([
 		'#type' => 'hidden',
 		'name' => 'invitation_code',
-		'value' => elgg_extract('invitecode', $vars, get_input('invitecode')),
+		'value' => elgg_extract('invitation_code', $vars, get_input('invitation_code')),
 	]);
 }
 
