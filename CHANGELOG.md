@@ -1,3 +1,13 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/compare/2.0.0...2.1.0) (2018-03-30)
+
+
+### Features
+
+* **url:** add a hook to filter invite URL params ([e9451f6](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/e9451f6))
+
+
+
 <a name="2.0.0"></a>
 # 2.0.0 (2018-03-27)
 

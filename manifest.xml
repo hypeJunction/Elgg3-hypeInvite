@@ -7,7 +7,7 @@
 	<description>An interface for sending site and group invitations</description>
 	<category>invite</category>
 	
-	<version type="dist">2.0.0</version>
+	<version type="dist">2.1.0</version>
 
 	<author>Ismayil Khayredinov (info@hypejunction.com)</author>
 	<website>http://www.hypejunction.com/</website>
