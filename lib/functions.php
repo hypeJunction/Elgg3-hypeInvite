@@ -65,10 +65,17 @@ function groups_invite_create_group_invite($email) {
  * @return string
  */
 function users_invite_get_registration_link($email, $inviter_guid = null, array $params = []) {
-	$url = elgg_get_registration_url(array_merge($params, [
+	$params = array_merge($params, [
 		'email' => $email,
 		'friend_guid' => $inviter_guid,
-	]));
+			]);
+
+	$params = elgg_trigger_plugin_hook('params', 'invite', [
+		'email' => $email,
+		'inviter_guid' => $inviter_guid,
+	], $params);
+
+	$url = elgg_get_registration_url($params);
 
 	return elgg_normalize_url($url);
 }
