@@ -60,7 +60,23 @@ class AcceptGroupInvitesOnRegistration {
 				}
 
 				if ($accept_on_register || $ref == $group->guid) {
-					$group->join($user);
+					if ($group->join($user)) {
+						$subject = elgg_echo('groups:welcome:subject', [$group->getDisplayName()], $user->language);
+
+						$body = elgg_echo('groups:welcome:body', [
+							$user->getDisplayName(),
+							$group->getDisplayName(),
+							$group->getURL(),
+						], $user->language);
+
+						$params = [
+							'action' => 'add_membership',
+							'object' => $group,
+							'url' => $group->getURL(),
+						];
+
+						notify_user($user->guid, $group->owner_guid, $subject, $body, $params);
+					}
 				}
 			}
 
