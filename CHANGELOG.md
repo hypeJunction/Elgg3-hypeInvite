@@ -1,3 +1,13 @@
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/compare/2.1.1...2.1.2) (2018-03-31)
+
+
+### Bug Fixes
+
+* **ux:** send notification when user joins group on accepted invite ([cbb7257](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/cbb7257))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/compare/2.1.0...2.1.1) (2018-03-30)
 
