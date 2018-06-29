@@ -1,3 +1,13 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/compare/2.1.2...2.2.0) (2018-06-29)
+
+
+### Features
+
+* **core:** updates and fixes ([8820759](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/8820759))
+
+
+
 <a name="2.1.2"></a>
 ## [2.1.2](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/compare/2.1.1...2.1.2) (2018-03-31)
 
