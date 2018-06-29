@@ -30,7 +30,9 @@ return function() {
 
 		elgg_extend_view('register/extend', 'forms/register/invitation_code', 100);
 
-		add_group_tool_option('invites', null, false);
+		elgg()->group_tools->register('invites', [
+			'default_on' => false,
+		]);
 
 	});
 };
