@@ -1,3 +1,13 @@
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/compare/2.2.0...2.2.1) (2018-07-13)
+
+
+### Bug Fixes
+
+* **ux:** inline the system error ([04f3f99](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/commit/04f3f99))
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/compare/2.1.2...2.2.0) (2018-06-29)
 
