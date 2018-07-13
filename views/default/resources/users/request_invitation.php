@@ -9,7 +9,11 @@ $title = elgg_echo('users:invite:request');
 $form_vars = ['class' => 'elgg-form-account'];
 $content = elgg_view_form('users/request_invitation', $form_vars, []);
 
-$shell = elgg_get_config('walled_garden') ? 'walled_garden' : 'default';
+if (elgg_is_active_plugin('hypeTheme')) {
+	$shell = 'walled_garden';
+} else {
+	$shell = elgg_get_config('walled_garden') ? 'walled_garden' : 'default';
+}
 
 $body = elgg_view_layout('default', [
 	'content' => $content,

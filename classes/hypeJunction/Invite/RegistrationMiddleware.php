@@ -29,7 +29,7 @@ class RegistrationMiddleware {
 		if (empty($email) || empty($code)) {
 			if (elgg_get_plugin_setting('request_invitation', 'hypeInvite')) {
 				$redirect_url = elgg_generate_url('invite:request');
-				$exception = new HttpException(elgg_echo('users:invite:invitation_code:empty'), ELGG_HTTP_FORBIDDEN);
+				$exception = new HttpException('', ELGG_HTTP_FORBIDDEN);
 				$exception->setRedirectUrl($redirect_url);
 				throw $exception;
 			}

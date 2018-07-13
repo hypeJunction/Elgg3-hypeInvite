@@ -1,5 +1,9 @@
 <?php
 
+echo elgg_view_message('error', elgg_echo('users:invite:invitation_code:empty'), [
+	'title' => false,
+]);
+
 echo elgg_view_field([
 	'#type' => 'text',
 	'#label' => elgg_echo('users:invite:request:name'),
