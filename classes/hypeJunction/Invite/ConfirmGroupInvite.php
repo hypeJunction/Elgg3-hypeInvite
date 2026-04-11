@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Invite;
 
-use Elgg\CsrfException;
+use Elgg\Exceptions\Http\CsrfException;
 use Elgg\Exceptions\Http\EntityNotFoundException;
 use Elgg\Http\ResponseBuilder;
 use Elgg\Request;

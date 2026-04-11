@@ -1,7 +1,7 @@
 <?php
 
 if (elgg_is_logged_in()) {
-	throw new \Elgg\GatekeeperException();
+	throw new \Elgg\Exceptions\Http\GatekeeperException();
 }
 
 $title = elgg_echo('users:invite:request');

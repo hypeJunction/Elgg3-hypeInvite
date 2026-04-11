@@ -1,14 +1,14 @@
 <?php
 
 if (!elgg_get_plugin_setting('invite_friends', 'hypeInvite')) {
-	throw new \Elgg\PageNotFoundException();
+	throw new \Elgg\Exceptions\Http\PageNotFoundException();
 }
 
 $username = elgg_extract('username', $vars);
 $user = get_user_by_username($username);
 
 if (!$user || !$user->canEdit()) {
-	throw new \Elgg\EntityPermissionsException();
+	throw new \Elgg\Exceptions\Http\EntityPermissionsException();
 }
 
 elgg_set_page_owner_guid($user->guid);
