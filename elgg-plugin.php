@@ -1,6 +1,7 @@
 <?php
 
 return [
+	'bootstrap' => \hypeJunction\Invite\Bootstrap::class,
 	'entities' => [
 		[
 			'type' => 'object',
@@ -62,6 +63,42 @@ return [
 		],
 		'groups/invite' => [
 			'controller' => \hypeJunction\Invite\InviteGroupMembersAction::class,
+		],
+	],
+	'hooks' => [
+		'registration_url' => [
+			'site' => [
+				\hypeJunction\Invite\GenerateRegistrationUrl::class => [],
+			],
+		],
+		'register' => [
+			'user' => [
+				\hypeJunction\Invite\RegistrationForwardUrl::class => ['priority' => 1000],
+			],
+			'menu:page' => [
+				\hypeJunction\Invite\PageMenu::class => [],
+			],
+			'menu:entity' => [
+				\hypeJunction\Invite\EntityMenu::class => [],
+			],
+		],
+		'accept' => [
+			'invite' => [
+				\hypeJunction\Invite\AcceptFriendInvitesOnRegistration::class => [],
+				\hypeJunction\Invite\AcceptGroupInvitesOnRegistration::class => [],
+			],
+		],
+	],
+	'events' => [
+		'create' => [
+			'user' => [
+				\hypeJunction\Invite\ProcessUserInvitesOnRegistration::class => [],
+			],
+		],
+	],
+	'view_extensions' => [
+		'register/extend' => [
+			'forms/register/invitation_code' => ['priority' => 100],
 		],
 	],
 ];
