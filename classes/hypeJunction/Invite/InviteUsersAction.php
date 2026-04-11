@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Invite;
 
-use Elgg\EntityPermissionsException;
+use Elgg\Exceptions\Http\EntityPermissionsException;
 use Elgg\Http\OkResponse;
 use Elgg\Request;
 

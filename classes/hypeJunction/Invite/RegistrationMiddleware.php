@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Invite;
 
-use Elgg\HttpException;
+use Elgg\Exceptions\HttpException;
 use Elgg\Request;
 use Exception;
 

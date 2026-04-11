@@ -12,8 +12,6 @@ class Bootstrap extends DefaultPluginBootstrap {
 			\elgg_register_plugin_hook_handler('register', 'menu:actions', GroupTitleMenu::class, 800);
 		}
 
-		\elgg()->group_tools->register('invites', [
-			'default_on' => false,
-		]);
+		// group_tools 'invites' is now registered declaratively in elgg-plugin.php
 	}
 }

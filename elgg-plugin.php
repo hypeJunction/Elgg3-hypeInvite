@@ -101,4 +101,9 @@ return [
 			'forms/register/invitation_code' => ['priority' => 100],
 		],
 	],
+	'group_tools' => [
+		'invites' => [
+			'default_on' => false,
+		],
+	],
 ];

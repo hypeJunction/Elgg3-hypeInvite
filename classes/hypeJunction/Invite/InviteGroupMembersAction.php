@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Invite;
 
-use Elgg\EntityNotFoundException;
+use Elgg\Exceptions\Http\EntityNotFoundException;
 use Elgg\Http\OkResponse;
 use Elgg\Request;
 use NotificationException;
