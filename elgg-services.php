@@ -1,5 +1,5 @@
 <?php
 
 return [
-	'users.invites' => \DI\object(\hypeJunction\Invite\InviteService::class),
+	'users.invites' => \DI\create(\hypeJunction\Invite\InviteService::class),
 ];
