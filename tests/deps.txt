@@ -1,0 +1,4 @@
+# No sibling plugins are required for the hypeinvite characterization
+# suite. manifest.xml still lists hypeAutocomplete as a 3.x-era declared
+# dep, but Elgg 4.x reads runtime deps from elgg-plugin.php (which has
+# none) — so autocomplete is soft at activation time.
