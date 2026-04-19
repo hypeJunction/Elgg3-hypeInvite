@@ -11,7 +11,10 @@
 		"invite code"
 	],
 	"extra": {
-		"installer-name": "hypeInvite"
+		"installer-name": "hypeInvite",
+		"elgg-plugin": {
+			"id": "hypeinvite"
+		}
 	},
 	"license": "proprietary",
 	"authors": [
@@ -21,13 +24,18 @@
 		}
 	],
 	"require": {
-		"php": ">=7.0",
-		"composer/installers": "~1.0"
+		"php": ">=7.4",
+		"composer/installers": "^2.0",
+		"elgg/elgg": "^4.0"
 	},
 	"autoload": {
 		"psr-0": {
 			"": "classes/"
 		}
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true
+		}
 	}
 }
-
