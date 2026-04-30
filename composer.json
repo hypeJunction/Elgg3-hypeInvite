@@ -1,5 +1,6 @@
 {
 	"name": "hypejunction/hypeinvite",
+	"version": "3.0.0",
 	"type": "elgg-plugin",
 	"description": "An interface for inviting new users to the site",
 	"homepage": "http://hypejunction.com",
