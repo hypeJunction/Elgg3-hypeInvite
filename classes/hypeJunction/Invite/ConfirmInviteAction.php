@@ -6,6 +6,7 @@ use Elgg\Exceptions\Http\EntityNotFoundException;
 use Elgg\Http\ResponseBuilder;
 use Elgg\Request;
 
+/** Action to confirm/approve a pending invitation request. */
 class ConfirmInviteAction {
 
 	/**
@@ -81,6 +82,5 @@ class ConfirmInviteAction {
 		}
 
 		return elgg_error_response(elgg_echo('users:invite:request:confirm_invitation:error'));
-
 	}
 }

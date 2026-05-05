@@ -2,21 +2,22 @@
 
 namespace hypeJunction\Invite;
 
-use Elgg\Hook;
+use Elgg\Event;
 
+/** Removes group invite item from title menu (shown in entity menu). */
 class GroupTitleMenu {
 
 	/**
 	 * Setup group title menu
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $event Event
 	 *
 	 * @return \ElggMenuItem[]
 	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
-		$menu = $hook->getValue();
-		$group = $hook->getEntityParam();
+		$menu = $event->getValue();
+		$group = $event->getEntityParam();
 
 		if (!$group instanceof \ElggGroup) {
 			return;

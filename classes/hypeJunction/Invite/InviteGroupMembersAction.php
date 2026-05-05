@@ -7,6 +7,7 @@ use Elgg\Http\OkResponse;
 use Elgg\Request;
 use NotificationException;
 
+/** Action to invite users to a group. */
 class InviteGroupMembersAction {
 
 	/**
@@ -146,6 +147,7 @@ class InviteGroupMembersAction {
 				} else {
 					$error++;
 				}
+
 				continue;
 			}
 
@@ -218,12 +220,15 @@ class InviteGroupMembersAction {
 		if ($invited) {
 			system_message(elgg_echo('groups:invite:result:invited', [$invited, $total]));
 		}
+
 		if ($added) {
 			system_message(elgg_echo('groups:invite:result:added', [$added, $total]));
 		}
+
 		if ($skipped) {
 			system_message(elgg_echo('groups:invite:result:skipped', [$skipped, $total]));
 		}
+
 		if ($error) {
 			register_error(elgg_echo('groups:invite:result:error', [$error, $total]));
 		}

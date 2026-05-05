@@ -2,21 +2,22 @@
 
 namespace hypeJunction\Invite;
 
-use Elgg\Hook;
+use Elgg\Event;
 use ElggMenuItem;
 
+/** Builds the invite-related page menu items. */
 class PageMenu {
 
 	/**
 	 * Setup page menu
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $event Event
 	 *
 	 * @return ElggMenuItem[]
 	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
-		$menu = $hook->getValue();
+		$menu = $event->getValue();
 
 		if (elgg_get_plugin_setting('invite_friends', 'hypeInvite')) {
 			$page_owner = elgg_get_page_owner_entity();
@@ -27,7 +28,7 @@ class PageMenu {
 					'href' => elgg_generate_url('friends:invite', [
 						'username' => $page_owner->username,
 					]),
-						'text' => elgg_echo('users:invite:invite'),
+					'text' => elgg_echo('users:invite:invite'),
 					'context' => ['friends'],
 					'section' => 'actions',
 					'icon' => 'envelope-o',
@@ -67,5 +68,4 @@ class PageMenu {
 
 		return $menu;
 	}
-
 }

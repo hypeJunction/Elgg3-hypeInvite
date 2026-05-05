@@ -111,32 +111,32 @@ class BootstrapTest extends IntegrationTestCase {
 
 	// --- declarative hook wiring (elgg-plugin.php 'hooks' block) ---
 
-	public function testRegistrationUrlHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+	public function testRegistrationUrlEventWired() {
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('registration_url', $handlers);
 		$this->assertArrayHasKey('site', $handlers['registration_url']);
 	}
 
-	public function testAcceptInviteHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+	public function testAcceptInviteEventWired() {
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('accept', $handlers);
 		$this->assertArrayHasKey('invite', $handlers['accept']);
 	}
 
-	public function testRegisterUserHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+	public function testRegisterUserEventWired() {
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('register', $handlers);
 		$this->assertArrayHasKey('user', $handlers['register']);
 	}
 
-	public function testPageMenuHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+	public function testPageMenuEventWired() {
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('register', $handlers);
 		$this->assertArrayHasKey('menu:page', $handlers['register']);
 	}
 
-	public function testEntityMenuHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+	public function testEntityMenuEventWired() {
+		$handlers = _elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('register', $handlers);
 		$this->assertArrayHasKey('menu:entity', $handlers['register']);
 	}

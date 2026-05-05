@@ -36,6 +36,7 @@ return [
 			'resource' => 'friends/invite',
 			'middleware' => [
 				\Elgg\Router\Middleware\Gatekeeper::class,
+				\Elgg\Router\Middleware\UserPageOwnerGatekeeper::class,
 			],
 		],
 		'invite:request' => [
@@ -65,7 +66,7 @@ return [
 			'controller' => \hypeJunction\Invite\InviteGroupMembersAction::class,
 		],
 	],
-	'hooks' => [
+	'events' => [
 		'registration_url' => [
 			'site' => [
 				\hypeJunction\Invite\GenerateRegistrationUrl::class => [],
@@ -88,8 +89,6 @@ return [
 				\hypeJunction\Invite\AcceptGroupInvitesOnRegistration::class => [],
 			],
 		],
-	],
-	'events' => [
 		'create' => [
 			'user' => [
 				\hypeJunction\Invite\ProcessUserInvitesOnRegistration::class => [],

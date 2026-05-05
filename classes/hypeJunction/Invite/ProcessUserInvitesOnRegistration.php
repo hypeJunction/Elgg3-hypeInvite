@@ -5,6 +5,7 @@ namespace hypeJunction\Invite;
 use Elgg\Event;
 use Exception;
 
+/** Process pending invites when a new user is created. */
 class ProcessUserInvitesOnRegistration {
 
 	/**
@@ -54,7 +55,7 @@ class ProcessUserInvitesOnRegistration {
 					'invite' => $invite,
 					'user' => $user,
 				];
-				if (elgg_trigger_plugin_hook('accept', 'invite', $params, true)) {
+				if (elgg_trigger_event_results('accept', 'invite', $params, true)) {
 					$invite->delete();
 				}
 			}

@@ -68,9 +68,9 @@ function users_invite_get_registration_link($email, $inviter_guid = null, array 
 	$params = array_merge($params, [
 		'email' => $email,
 		'friend_guid' => $inviter_guid,
-			]);
+	]);
 
-	$params = elgg_trigger_plugin_hook('params', 'invite', [
+	$params = elgg_trigger_event_results('params', 'invite', [
 		'email' => $email,
 		'inviter_guid' => $inviter_guid,
 	], $params);

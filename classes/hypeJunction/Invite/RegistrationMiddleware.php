@@ -6,12 +6,13 @@ use Elgg\Exceptions\HttpException;
 use Elgg\Request;
 use Exception;
 
+/** Middleware that validates invite codes on registration routes. */
 class RegistrationMiddleware {
 
 	/**
 	 * Validate required invitation code
 	 *
-	 * @param Request $request
+	 * @param Request $request Elgg request
 	 *
 	 * @return void
 	 * @throws HttpException
