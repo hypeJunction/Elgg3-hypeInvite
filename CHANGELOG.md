@@ -1,3 +1,22 @@
+<a name="5.0.0"></a>
+# 5.0.0 — Elgg 5.x migration
+
+### Breaking Changes
+
+* **Elgg 5.x**: Requires PHP 8.2+ and Elgg ^5.0
+* **Hooks → Events**: All plugin hook handlers migrated to the unified Elgg event system.
+  `'hooks'` key removed from `elgg-plugin.php`; all registrations now under `'events'`.
+* **Handler signatures**: All handler classes updated from `\Elgg\Hook` to `\Elgg\Event`
+
+### Changes
+
+* Route `friends:invite` now requires `UserPageOwnerGatekeeper` middleware
+* `elgg_trigger_plugin_hook('params', 'invite', ...)` → `elgg_trigger_event_results('params', 'invite', ...)`
+* Docker infra upgraded: PHP 8.2-apache, MySQL 8.0, Elgg 5.1.x
+* Added `ARCHITECTURE.md` documenting plugin structure for Elgg 5.x
+
+---
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/compare/2.2.0...2.2.1) (2018-07-13)
 
