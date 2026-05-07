@@ -5,6 +5,7 @@ namespace hypeJunction\Invite;
 use Elgg\Http\ResponseBuilder;
 use Elgg\Request;
 
+/** Action handler for requesting a site invitation. */
 class RequestInviteAction {
 
 	/**

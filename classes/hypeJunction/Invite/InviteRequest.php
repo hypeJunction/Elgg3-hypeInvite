@@ -21,5 +21,4 @@ class InviteRequest extends ElggObject {
 		parent::initializeAttributes();
 		$this->attributes['subtype'] = self::SUBTYPE;
 	}
-
 }

@@ -7,7 +7,7 @@ $query = get_input('term', get_input('q'));
 $input_name = get_input('name');
 $group_guid = (int) get_input('group_guid');
 
-elgg_set_http_header("Content-Type: application/json;charset=utf-8");
+elgg_set_http_header('Content-Type: application/json;charset=utf-8');
 
 $options = [
 	'query' => $query,

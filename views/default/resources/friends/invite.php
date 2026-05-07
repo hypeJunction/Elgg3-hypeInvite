@@ -15,7 +15,7 @@ elgg_set_page_owner_guid($user->guid);
 
 $title = elgg_echo('users:invite');
 
-elgg_push_breadcrumb(elgg_echo('friends'), "friends");
+elgg_push_breadcrumb(elgg_echo('friends'), 'friends');
 elgg_push_breadcrumb($user->getDisplayName(), "friends/{$user->username}");
 elgg_push_breadcrumb($title);
 
