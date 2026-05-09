@@ -1,6 +1,9 @@
 Invitations for Elgg
 =========================
-![Elgg 5.0](https://img.shields.io/badge/Elgg-5.0-orange.svg?style=flat-square)
+
+Invite-based user registration for Elgg — email invitations, invite-only networks, and group invitations.
+
+![Elgg 5.x](https://img.shields.io/badge/Elgg-5.x-orange.svg?style=flat-square)
 
 ## Features
 

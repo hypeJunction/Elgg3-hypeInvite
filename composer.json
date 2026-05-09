@@ -2,7 +2,7 @@
 	"name": "hypejunction/hypeinvite",
 	"version": "3.0.0",
 	"type": "elgg-plugin",
-	"description": "An interface for inviting new users to the site",
+	"description": "Invite-based user registration for Elgg — email invitations, invite-only networks, and group invitations.",
 	"homepage": "https://github.com/hypeJunction/Elgg3-hypeInvite",
 	"keywords": [
 		"elgg",
