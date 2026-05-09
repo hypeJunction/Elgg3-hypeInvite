@@ -64,4 +64,12 @@ return [
 			'controller' => \hypeJunction\Invite\InviteGroupMembersAction::class,
 		],
 	],
+
+	'events' => [
+		'seeds' => [
+			'database' => [
+				[\hypeJunction\Invite\Seeder::class, 'addSeed'] => [],
+			],
+		],
+	],
 ];
