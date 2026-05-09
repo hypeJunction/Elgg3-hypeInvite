@@ -1,6 +1,6 @@
 Invitations for Elgg
 =========================
-![Elgg 3.0](https://img.shields.io/badge/Elgg-3.0-orange.svg?style=flat-square)
+![Elgg 5.0](https://img.shields.io/badge/Elgg-5.0-orange.svg?style=flat-square)
 
 ## Features
 
@@ -35,7 +35,6 @@ add_entity_relationship($invite->guid, 'invited_by', $inviter->guid);
 
 // generate a registration link to include in the notification
 $registration_link = users_invite_get_registration_link($email, $inviter->guid);
-
 
 // implement a custom handler
 elgg_register_plugin_hook_handler('accept', 'invite', function($hook, $type, $return, $params) {

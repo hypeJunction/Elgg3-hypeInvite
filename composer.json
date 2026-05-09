@@ -3,7 +3,7 @@
 	"version": "3.0.0",
 	"type": "elgg-plugin",
 	"description": "An interface for inviting new users to the site",
-	"homepage": "http://hypejunction.com",
+	"homepage": "https://github.com/hypeJunction/Elgg3-hypeInvite",
 	"keywords": [
 		"elgg",
 		"plugin",
@@ -21,7 +21,7 @@
 	"authors": [
 		{
 			"name": "Ismayil Khayredinov",
-			"email": "info@hypejunction.com"
+			"email": "ismayil.khayredinov@gmail.com"
 		}
 	],
 	"require": {
