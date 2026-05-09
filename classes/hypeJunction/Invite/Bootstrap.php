@@ -15,5 +15,7 @@ class Bootstrap extends DefaultPluginBootstrap {
 		}
 
 		// group_tools 'invites' is now registered declaratively in elgg-plugin.php
+
+		\elgg_register_event_handler('seeds', 'database', [Seeder::class, 'addSeed']);
 	}
 }
