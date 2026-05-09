@@ -22,7 +22,7 @@
 	],
 	"require": {
 		"php": ">=7.0",
-		"composer/installers": "~1.0"
+		"composer/installers": "^1.0 || ^2.0"
 	},
 	"autoload": {
 		"psr-0": {
@@ -30,4 +30,3 @@
 		}
 	}
 }
-
