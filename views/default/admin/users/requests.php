@@ -1,6 +1,6 @@
 <?php
 
-elgg_require_js('admin/users/requests');
+elgg_import_esm('js/admin/users/requests');
 
 $check_all = elgg_format_element('input', [
 	'type' => 'checkbox',
