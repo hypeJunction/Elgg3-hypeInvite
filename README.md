@@ -36,7 +36,6 @@ add_entity_relationship($invite->guid, 'invited_by', $inviter->guid);
 // generate a registration link to include in the notification
 $registration_link = users_invite_get_registration_link($email, $inviter->guid);
 
-
 // implement a custom handler
 elgg_register_plugin_hook_handler('accept', 'invite', function($hook, $type, $return, $params) {
 
@@ -60,3 +59,9 @@ elgg_register_plugin_hook_handler('accept', 'invite', function($hook, $type, $re
 	}
 });
 ```
+
+## Compatibility
+
+| Plugin version | Elgg version |
+|---|---|
+| current | 7.x |
