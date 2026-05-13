@@ -1,42 +1,42 @@
 {
-	"name": "hypejunction/hypeinvite",
-	"version": "3.0.0",
-	"type": "elgg-plugin",
-	"description": "An interface for inviting new users to the site",
-	"homepage": "http://hypejunction.com",
-	"keywords": [
-		"elgg",
-		"plugin",
-		"invite",
-		"invite only network",
-		"invite code"
-	],
-	"extra": {
-		"installer-name": "hypeInvite",
-		"elgg-plugin": {
-			"id": "hypeinvite"
-		}
-	},
-	"license": "proprietary",
-	"authors": [
-		{
-			"name": "Ismayil Khayredinov",
-			"email": "info@hypejunction.com"
-		}
-	],
-	"require": {
-		"php": ">=7.4",
-		"composer/installers": "^2.0",
-		"elgg/elgg": "^4.0"
-	},
-	"autoload": {
-		"psr-0": {
-			"": "classes/"
-		}
-	},
-	"config": {
-		"allow-plugins": {
-			"composer/installers": true
-		}
-	}
+    "name": "hypejunction/hypeinvite",
+    "version": "4.0.0",
+    "type": "elgg-plugin",
+    "description": "An interface for inviting new users to the site",
+    "homepage": "http://hypejunction.com",
+    "keywords": [
+        "elgg",
+        "plugin",
+        "invite",
+        "invite only network",
+        "invite code"
+    ],
+    "extra": {
+        "installer-name": "hypeInvite",
+        "elgg-plugin": {
+            "id": "hypeinvite"
+        }
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Ismayil Khayredinov",
+            "email": "info@hypejunction.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "composer/installers": "^2.0",
+        "elgg/elgg": "^4.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "classes/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
 }
