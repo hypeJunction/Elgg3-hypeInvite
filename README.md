@@ -3,7 +3,15 @@ Invitations for Elgg
 
 Invite-based user registration for Elgg — email invitations, invite-only networks, and group invitations.
 
-![Elgg 5.x](https://img.shields.io/badge/Elgg-5.x-orange.svg?style=flat-square)
+![Elgg 6.x](https://img.shields.io/badge/Elgg-6.x-orange.svg?style=flat-square)
+
+## Compatibility
+
+| Plugin version | Elgg version |
+|---|---|
+| current | 6.x |
+| 5.x | 5.x |
+| 2.x | 2.x |
 
 ## Features
 
@@ -40,14 +48,14 @@ add_entity_relationship($invite->guid, 'invited_by', $inviter->guid);
 $registration_link = users_invite_get_registration_link($email, $inviter->guid);
 
 // implement a custom handler
-elgg_register_plugin_hook_handler('accept', 'invite', function($hook, $type, $return, $params) {
+elgg_register_event_handler('accept', 'invite', function(\Elgg\Event $event) {
 
-	$invite = $params['invite'];
-	$user = $params['user'];
+	$invite = $event->getParam('invite');
+	$user = $event->getParam('user');
 
-	$events = elgg_get_entities_from_relationship([
-        'types' => 'object',
-        'subtypes' => 'event',
+	$events = elgg_get_entities([
+		'types' => 'object',
+		'subtypes' => 'event',
 		'relationship' => 'invited_to',
 		'relationship_guid' => $invite->guid,
 		'limit' => 0,

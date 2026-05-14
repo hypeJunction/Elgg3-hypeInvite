@@ -1,3 +1,26 @@
+<a name="6.0.0"></a>
+# 6.0.0 — Elgg 6.x migration
+
+### Breaking Changes
+
+* **Elgg 6.x**: Requires PHP 8.2+ and Elgg `~6.1.0`; `ext-intl` now required
+* **AMD → ES modules**: RequireJS/AMD support was removed in Elgg 6.x. The
+  plugin's two JS modules are now native ES modules:
+  * `views/default/admin/users/requests.js` → `requests.mjs`
+  * `views/default/object/user_invite_request/actions.js` → `actions.mjs`
+  * `elgg_require_js()` → `elgg_import_esm()`
+
+### Changes
+
+* `composer.json`: dropped the hardcoded `version` field (resolved from git tags)
+* Docker infra upgraded to the Elgg 6.x stack (`elgg/elgg ~6.1.0`, PHPUnit 10.5)
+* Repaired `Seeder` to implement the `getType()` / `getCountOptions()` abstract
+  methods required by `\Elgg\Database\Seeds\Seed` (missing methods caused a
+  fatal on activation on the 5.x base)
+* `ARCHITECTURE.md` updated for Elgg 6.x
+
+---
+
 <a name="5.0.0"></a>
 # 5.0.0 — Elgg 5.x migration
 

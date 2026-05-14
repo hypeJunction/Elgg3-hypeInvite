@@ -1,4 +1,4 @@
-# hypeInvite — Plugin Architecture (Elgg 5.x)
+# hypeInvite — Plugin Architecture (Elgg 6.x)
 
 An interface for inviting new users and managing group invitations on Elgg sites.
 
@@ -36,21 +36,24 @@ hypeinvite/
 │   ├── ConfirmInviteAction.php            # Admin action: approve invite request
 │   ├── InviteGroupMembersAction.php       # Action: invite users to a group
 │   ├── InviteUsersAction.php              # Action: invite users to the site
-│   └── RequestInviteAction.php            # Public action: request an invitation
+│   ├── RequestInviteAction.php            # Public action: request an invitation
+│   └── Seeder.php                         # Elgg\Database\Seeds\Seed subclass — seeds user_invite objects
 ├── lib/
 │   └── functions.php                      # Legacy helper functions (used in views/plugins)
 ├── views/
 │   └── default/
+│       ├── admin/users/requests.mjs       # ES module — admin invite-request table select-all
+│       ├── object/user_invite_request/actions.mjs  # ES module — AJAX confirm/delete invite request
 │       ├── forms/                         # Invite forms (friends/invite, groups/invite)
 │       ├── object/user_invite/            # Invite object views
 │       ├── object/user_invite_request/    # Invite request views
 │       ├── plugins/hypeInvite/            # Plugin settings view
 │       └── resources/                     # Page resources (friends/invite, groups/invite)
 ├── languages/                             # Translation files
-├── docker/                                # Per-plugin Elgg 5.x Docker stack
+├── docker/                                # Per-plugin Elgg 6.x Docker stack
 ├── elgg-plugin.php                        # Declarative plugin config
 ├── elgg-services.php                      # DI service registration (users.invites)
-└── composer.json                          # php >=8.2, elgg/elgg ^5.0
+└── composer.json                          # php >=8.2, ext-intl, elgg/elgg ~6.1.0
 ```
 
 ## Events Registered
@@ -104,12 +107,45 @@ No required plugin dependencies declared. Optional integration:
 
 - `users.invites` → `InviteService` — registered in `elgg-services.php`
 
-## Migration Notes (4.x → 5.x)
+## Seeding
 
-- All `'hooks'` declarations merged into `'events'` in `elgg-plugin.php`
-- `\Elgg\Hook` replaced with `\Elgg\Event` throughout all handler classes
-- `elgg_register_plugin_hook_handler()` → `elgg_register_event_handler()`
-- `elgg_trigger_plugin_hook()` → `elgg_trigger_event_results()`
-- Added `UserPageOwnerGatekeeper` to `friends:invite` route
-- Docker infra upgraded to PHP 8.2 + MySQL 8.0 + Elgg 5.1.x
-- Test assertions updated: `_elgg_services()->hooks` → `_elgg_services()->events`
+`hypeJunction\Invite\Seeder` extends `\Elgg\Database\Seeds\Seed` and is wired
+to the `seeds, database` event in `Bootstrap::init()`. It seeds `user_invite`
+objects tagged with `__faker` metadata so `elgg-cli database:unseed` removes
+them cleanly. The plugin owns entity subtypes, so a seeder is mandatory.
+
+## JavaScript
+
+Elgg 6.x uses native ES modules (RequireJS/AMD removed). The plugin ships
+two `.mjs` modules:
+
+- `views/default/admin/users/requests.mjs` — imported via `elgg_import_esm()`
+  in `views/default/admin/users/requests.php`
+- `views/default/object/user_invite_request/actions.mjs` — referenced as a
+  menu-item `'deps'` entry in `views/default/object/user_invite_request/actions.php`
+
+## Migration Notes (5.x → 6.x)
+
+- `composer.json`: `elgg/elgg` `^5.0` → `~6.1.0`, added `ext-intl`, dropped the
+  hardcoded `version` field (resolved from git tags)
+- AMD → ES modules: `requests.js`/`actions.js` converted to `.mjs` with native
+  `import` syntax; `elgg_require_js()` → `elgg_import_esm()` (the AMD functions
+  `elgg_require_js`/`elgg_define_js` were removed in Elgg 6.x)
+- Docker infra upgraded to the Elgg 6.x stack (`elgg/elgg ~6.1.0`, PHPUnit 10.5)
+- `Seeder` repaired during the 5.x baseline pass (it was missing the
+  `getType()`/`getCountOptions()` abstract methods required since Elgg 5.x,
+  which caused a fatal on activation)
+- No annotation/icon/hook-function/raw-SQL/CSS changes were needed — the plugin
+  uses none of the APIs removed by the other 5x→6x breaking changes
+- PHPUnit suite (34 tests) runs unchanged on PHPUnit 10.5 — no deprecated
+  annotations or assertion methods in use
+
+### Known pre-existing issue (not introduced by this migration)
+
+All `elgg_get_plugin_setting(..., 'hypeInvite', ...)` callsites use the
+camelCase plugin id `'hypeInvite'` instead of the lowercase `'hypeinvite'`.
+Since Elgg 4.x, `elgg_get_plugin_setting()` silently returns `false` on a
+camelCase id rather than the stored value or the supplied default. This is a
+latent 4.x-era defect present on the 5.x base and carried forward unchanged;
+it should be fixed in a dedicated pass (it is out of scope for the 5→6
+version migration and is not a regression).
