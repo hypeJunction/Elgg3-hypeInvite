@@ -11,6 +11,14 @@ robots.txt
 /vendor/
 composer.lock
 Gemfile.lock
+
+# docker local state
 docker/.env
+
+# test runner
 tests/.phpunit.result.cache
+tests/.phpunit.cache/
 tests/coverage/
+tests/playwright/node_modules/
+tests/playwright/playwright-report/
+tests/playwright/test-results/
