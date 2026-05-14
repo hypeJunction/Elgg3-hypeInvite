@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import 'jquery';
 
 $(document).on('change', '.elgg-table-check-all', function () {
 	var target = '[name="' + $(this).attr('target') + '"]';

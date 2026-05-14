@@ -1,7 +1,7 @@
 {
     "name": "hypejunction/hypeinvite",
     "type": "elgg-plugin",
-    "description": "An interface for inviting new users to the site",
+    "description": "Invite-based user registration for Elgg \u2014 email invitations, invite-only networks, and group invitations.",
     "homepage": "https://github.com/hypeJunction/Elgg3-hypeInvite",
     "keywords": [
         "elgg",
@@ -11,7 +11,10 @@
         "invite code"
     ],
     "extra": {
-        "installer-name": "hypeinvite"
+        "installer-name": "hypeInvite",
+        "elgg-plugin": {
+            "id": "hypeinvite"
+        }
     },
     "license": "GPL-2.0-or-later",
     "authors": [
@@ -22,18 +25,26 @@
     ],
     "require": {
         "php": ">=8.3",
+        "ext-intl": "*",
         "composer/installers": "^2.0",
-        "elgg/elgg": "~7.0.0",
-        "ext-intl": "*"
+        "elgg/elgg": "~7.0.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "classes/"
+        }
     },
     "config": {
         "allow-plugins": {
             "composer/installers": true
         }
     },
-    "autoload": {
-        "psr-0": {
-            "": "classes/"
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
         }
-    }
+    ]
 }

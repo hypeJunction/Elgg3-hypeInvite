@@ -5,25 +5,25 @@
 
 namespace hypeJunction\Invite;
 
-
-use Elgg\Hook;
+use Elgg\Event;
 use Exception;
 
+/** Create group memberships when a group invite is accepted. */
 class AcceptGroupInvitesOnRegistration {
 
 	/**
 	 * Create group invites when the invite is accepted
 	 *
-	 * @elgg_plugin_hook access invite
+	 * @elgg_event accept invite
 	 *
-	 * @param Hook $hook
+	 * @param Event $event Event
 	 *
 	 * @return void
 	 * @throws Exception
 	 */
-	public function __invoke(Hook $hook) {
-		$return = $hook->getValue();
-		$params = $hook->getParams();
+	public function __invoke(Event $event) {
+		$return = $event->getValue();
+		$params = $event->getParams();
 
 		if ($return === false) {
 			return;
@@ -79,7 +79,6 @@ class AcceptGroupInvitesOnRegistration {
 					}
 				}
 			}
-
 		});
 	}
 }

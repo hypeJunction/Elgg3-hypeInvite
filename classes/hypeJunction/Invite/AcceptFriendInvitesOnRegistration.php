@@ -2,23 +2,24 @@
 
 namespace hypeJunction\Invite;
 
-use Elgg\Hook;
+use Elgg\Event;
 
+/** Creates friend relationships when a user accepts a friend invite. */
 class AcceptFriendInvitesOnRegistration {
 
 	/**
 	 * Create friendships or friendship requests when the invite is accepted
 	 *
-	 * @elgg_plugin_hook accept invite
+	 * @elgg_event accept invite
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $event Event
 	 *
 	 * @return void
 	 * @throws \Exception
 	 */
-	public function __invoke(Hook $hook) {
-		$return = $hook->getValue();
-		$params = $hook->getParams();
+	public function __invoke(Event $event) {
+		$return = $event->getValue();
+		$params = $event->getParams();
 
 		if ($return === false) {
 			return;
@@ -62,7 +63,6 @@ class AcceptFriendInvitesOnRegistration {
 					add_entity_relationship($inviter->guid, $relationship, $user->guid);
 				}
 			}
-
 		});
 	}
 }

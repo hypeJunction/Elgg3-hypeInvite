@@ -1,3 +1,65 @@
+<a name="7.0.0"></a>
+# 7.0.0 — Elgg 7.x migration
+
+### Breaking Changes
+
+* **Elgg 7.x**: Requires PHP 8.3+ and Elgg `~7.0.0`
+
+### Changes
+
+* `composer.json`: added the Elgg 7.x-required stability settings
+  (`minimum-stability: dev`, `prefer-stable: true`, asset-packagist repository)
+* Docker infra upgraded to the Elgg 7.x stack (`php:8.3-apache`,
+  `elgg/elgg ~7.0.0`, PHPUnit `^10.5 || ^11.0`); test admin password bumped
+  to 16 characters for the new `min_password_length` default
+* No plugin code changes were required — hypeInvite uses none of the APIs
+  removed or changed in Elgg 7.x
+* `ARCHITECTURE.md` updated for Elgg 7.x
+
+---
+
+<a name="6.0.0"></a>
+# 6.0.0 — Elgg 6.x migration
+
+### Breaking Changes
+
+* **Elgg 6.x**: Requires PHP 8.2+ and Elgg `~6.1.0`; `ext-intl` now required
+* **AMD → ES modules**: RequireJS/AMD support was removed in Elgg 6.x. The
+  plugin's two JS modules are now native ES modules:
+  * `views/default/admin/users/requests.js` → `requests.mjs`
+  * `views/default/object/user_invite_request/actions.js` → `actions.mjs`
+  * `elgg_require_js()` → `elgg_import_esm()`
+
+### Changes
+
+* `composer.json`: dropped the hardcoded `version` field (resolved from git tags)
+* Docker infra upgraded to the Elgg 6.x stack (`elgg/elgg ~6.1.0`, PHPUnit 10.5)
+* Repaired `Seeder` to implement the `getType()` / `getCountOptions()` abstract
+  methods required by `\Elgg\Database\Seeds\Seed` (missing methods caused a
+  fatal on activation on the 5.x base)
+* `ARCHITECTURE.md` updated for Elgg 6.x
+
+---
+
+<a name="5.0.0"></a>
+# 5.0.0 — Elgg 5.x migration
+
+### Breaking Changes
+
+* **Elgg 5.x**: Requires PHP 8.2+ and Elgg ^5.0
+* **Hooks → Events**: All plugin hook handlers migrated to the unified Elgg event system.
+  `'hooks'` key removed from `elgg-plugin.php`; all registrations now under `'events'`.
+* **Handler signatures**: All handler classes updated from `\Elgg\Hook` to `\Elgg\Event`
+
+### Changes
+
+* Route `friends:invite` now requires `UserPageOwnerGatekeeper` middleware
+* `elgg_trigger_plugin_hook('params', 'invite', ...)` → `elgg_trigger_event_results('params', 'invite', ...)`
+* Docker infra upgraded: PHP 8.2-apache, MySQL 8.0, Elgg 5.1.x
+* Added `ARCHITECTURE.md` documenting plugin structure for Elgg 5.x
+
+---
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/hypeJunctionPro/Elgg3-hypeInvite/compare/2.2.0...2.2.1) (2018-07-13)
 

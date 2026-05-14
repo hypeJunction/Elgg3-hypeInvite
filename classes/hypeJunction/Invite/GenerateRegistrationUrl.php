@@ -5,31 +5,31 @@
 
 namespace hypeJunction\Invite;
 
-
-use Elgg\Hook;
+use Elgg\Event;
 use Exception;
 
+/** Generate registration link with invite code. */
 class GenerateRegistrationUrl {
 
 	/**
 	 * Generate registration link
 	 *
-	 * @elgg_plugin_hook registration_url site
+	 * @elgg_event registration_url site
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $event Hook
 	 *
 	 * @return string
 	 * @throws Exception
 	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
-		$registration_url = $hook->getValue();
+		$registration_url = $event->getValue();
 
 		if (!$registration_url) {
 			$registration_url = elgg_normalize_url('register');
 		}
 
-		$email = $hook->getParam('email');
+		$email = $event->getParam('email');
 
 		if (!$email) {
 			return $registration_url;
@@ -40,7 +40,7 @@ class GenerateRegistrationUrl {
 			$user_invite = users_invite_create_user_invite($email);
 		}
 
-		$friend_guid = $hook->getParam('friend_guid');
+		$friend_guid = $event->getParam('friend_guid');
 		if ($friend_guid) {
 			add_entity_relationship($user_invite->guid, 'invited_by', $friend_guid);
 		}

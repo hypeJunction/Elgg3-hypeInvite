@@ -1,7 +1,7 @@
 {
     "name": "hypeInvite",
     "version": "2.2.1",
-    "license": "SEE LICENSE IN https://hypejunction.com/license",
+    "license": "SEE LICENSE IN https://github.com/hypeJunction/hypeinvite",
     "repository": {
         "type": "git",
         "url": "git@github.com:hypeJunctionPro/Elgg3-hypeInvite.git",

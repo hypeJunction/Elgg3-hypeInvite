@@ -6,6 +6,7 @@ use Elgg\Exceptions\Http\EntityPermissionsException;
 use Elgg\Http\OkResponse;
 use Elgg\Request;
 
+/** Action to invite users to the site. */
 class InviteUsersAction {
 
 	/**
@@ -109,9 +110,11 @@ class InviteUsersAction {
 		if ($invited) {
 			system_message(elgg_echo('users:invite:result:invited', [$invited, $total]));
 		}
+
 		if ($skipped) {
 			system_message(elgg_echo('users:invite:result:skipped', [$skipped, $total]));
 		}
+
 		if ($error) {
 			register_error(elgg_echo('users:invite:result:error', [$error, $total]));
 		}

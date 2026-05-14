@@ -8,12 +8,13 @@ use Elgg\Http\ResponseBuilder;
 use Elgg\Request;
 use Exception;
 
+/** Controller to confirm a group invitation. */
 class ConfirmGroupInvite {
 
 	/**
 	 * Confirm group invite
 	 *
-	 * @param Request $request
+	 * @param Request $request Elgg request
 	 *
 	 * @return ResponseBuilder
 	 * @throws CsrfException
@@ -45,11 +46,10 @@ class ConfirmGroupInvite {
 				return elgg_ok_response([
 					'group' => $group,
 					'user' => $user,
-					], elgg_echo('groups:joined'), $group->getURL());
+				], elgg_echo('groups:joined'), $group->getURL());
 			}
 
 			return elgg_error_response(elgg_echo('groups:invite:confirm:error'));
 		});
-
 	}
 }

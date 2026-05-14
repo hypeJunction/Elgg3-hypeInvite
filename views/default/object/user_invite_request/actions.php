@@ -1,7 +1,5 @@
 <?php
 
-elgg_import_esm('js/object/user_invite_request/actions');
-
 $item = elgg_extract('item', $vars);
 
 if (!$item instanceof \hypeJunction\Invite\InviteRequest) {
@@ -18,7 +16,7 @@ $items = [
 		'icon' => 'check',
 		'confirm' => true,
 		'class' => 'elgg-button elgg-button-submit',
-
+		'deps' => ['object/user_invite_request/actions'],
 	],
 	[
 		'name' => 'delete',
@@ -29,7 +27,7 @@ $items = [
 		'icon' => 'times',
 		'confirm' => true,
 		'class' => 'elgg-button elgg-button-delete',
-
+		'deps' => ['object/user_invite_request/actions'],
 
 	]
 ];

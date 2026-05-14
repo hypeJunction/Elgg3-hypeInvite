@@ -9,35 +9,41 @@ use Elgg\Database\Seeds\Seed;
  */
 class Seeder extends Seed {
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public static function getType(): string {
-		return 'user_invite';
+		return 'hypeinvite';
 	}
 
-	public function getCountOptions(): array {
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function getCountOptions(): array {
 		return [
-			'type' => 'object',
-			'subtype' => 'user_invite',
+			'types' => 'object',
+			'subtypes' => Invite::SUBTYPE,
+			'metadata_names' => '__faker',
 		];
 	}
 
-	public function seed(): void {
-		$this->advance($this->getCount());
+	/**
+	 * {@inheritdoc}
+	 */
+	public function seed() {
+		while ($this->getCount() < $this->limit) {
+			$owner = $this->getRandomUser() ?: $this->createUser();
 
-		while ($this->seedsCount() < $this->getCount()) {
-			$owner = $this->getRandomUser();
+			$invite = $this->createObject([
+				'subtype' => Invite::SUBTYPE,
+				'owner_guid' => $owner->guid,
+				'container_guid' => $owner->guid,
+				'access_id' => ACCESS_PRIVATE,
+				'title' => $this->faker()->sentence(3),
+				'email' => $this->faker()->safeEmail(),
+			]);
 
-			if (!$owner) {
-				break;
-			}
-
-			$invite = new Invite();
-			$invite->owner_guid = $owner->guid;
-			$invite->container_guid = $owner->guid;
-			$invite->access_id = ACCESS_PRIVATE;
-			$invite->email = $this->faker->safeEmail();
-			$invite->title = $this->faker->sentence(3);
-
-			if (!$invite->save()) {
+			if (!$invite) {
 				continue;
 			}
 
@@ -45,14 +51,19 @@ class Seeder extends Seed {
 		}
 	}
 
-	public function unseed(): void {
+	/**
+	 * {@inheritdoc}
+	 */
+	public function unseed() {
 		$entities = elgg_get_entities([
 			'type' => 'object',
-			'subtype' => 'user_invite',
-			'metadata_name' => '__faker',
-			'limit' => false,
+			'subtype' => Invite::SUBTYPE,
+			'metadata_names' => '__faker',
+			'limit' => 0,
 			'batch' => true,
 		]);
+		/* @var $entities \ElggBatch */
+		$entities->setIncrementOffset(false);
 
 		foreach ($entities as $entity) {
 			$entity->delete();

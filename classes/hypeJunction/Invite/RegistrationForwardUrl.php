@@ -2,31 +2,32 @@
 
 namespace hypeJunction\Invite;
 
-use Elgg\Hook;
+use Elgg\Event;
 use Exception;
 
+/** Overrides the forward URL after registration to show invite context. */
 class RegistrationForwardUrl {
 
 	/**
 	 * Hijack forward URL of the register action
 	 *
-	 * @elgg_plugin_hook register user
+	 * @elgg_event register user
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $event Event
 	 *
 	 * @return void
 	 * @throws Exception
 	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $event) {
 
-		$value = $hook->getValue();
+		$value = $event->getValue();
 
 		if ($value === false) {
 			// Registration was prevented
 			return;
 		}
 
-		$user = $hook->getUserParam();
+		$user = $event->getUserParam();
 		/* @var $user \ElggUser */
 
 		elgg_call(ELGG_IGNORE_ACCESS, function () use ($user) {
@@ -59,7 +60,7 @@ class RegistrationForwardUrl {
 				return;
 			}
 
-			elgg_register_plugin_hook_handler('forward', 'all', function () use ($forward_url) {
+			elgg_register_event_handler('forward', 'all', function () use ($forward_url) {
 				return $forward_url;
 			});
 		});
