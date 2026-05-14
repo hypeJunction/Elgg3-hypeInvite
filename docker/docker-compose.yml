@@ -37,7 +37,9 @@ services:
       ELGG_DATA_ROOT: "/var/www/data/"
       ELGG_DB_PREFIX: "elgg_"
       ELGG_ADMIN_EMAIL: "admin@example.com"
-      ELGG_ADMIN_PASSWORD: "admin12345"
+      # Elgg 7.x raised the default min_password_length from 6 to 16,
+      # so the test admin password must be at least 16 characters.
+      ELGG_ADMIN_PASSWORD: "admin12345678901"
     ports:
       - "${ELGG_PORT:-8480}:80"
     depends_on:
