@@ -18,11 +18,18 @@ class EntityCrudTest extends IntegrationTestCase {
 	public function up() {}
 	public function down() {}
 
-	public function getPluginID(): string {
+	/**
+     * @return string
+     */
+    public function getPluginID(): string {
 		return 'hypeinvite';
 	}
 
-	private function makeInvite(array $overrides = []): Invite {
+	/**
+     * @param array $overrides
+     * @return Invite
+     */
+    private function makeInvite(array $overrides = []): Invite {
 		return elgg_call(ELGG_IGNORE_ACCESS, function () use ($overrides) {
 			$user = $overrides['__user'] ?? $this->createUser();
 			$i = new Invite();
@@ -43,7 +50,11 @@ class EntityCrudTest extends IntegrationTestCase {
 		});
 	}
 
-	private function makeInviteRequest(array $overrides = []): InviteRequest {
+	/**
+     * @param array $overrides
+     * @return InviteRequest
+     */
+    private function makeInviteRequest(array $overrides = []): InviteRequest {
 		return elgg_call(ELGG_IGNORE_ACCESS, function () use ($overrides) {
 			$user = $overrides['__user'] ?? $this->createUser();
 			$r = new InviteRequest();
@@ -59,20 +70,27 @@ class EntityCrudTest extends IntegrationTestCase {
 	}
 
 	// --- Invite defaults ---
-
-	public function testInviteInitializesAsUserInviteSubtype(): void {
+    /**
+     * @return void
+     */
+    public function testInviteInitializesAsUserInviteSubtype(): void {
 		$i = new Invite();
 		$this->assertSame('user_invite', $i->getSubtype());
 	}
 
-	public function testInviteRequestInitializesAsUserInviteRequestSubtype(): void {
+	/**
+     * @return void
+     */
+    public function testInviteRequestInitializesAsUserInviteRequestSubtype(): void {
 		$r = new InviteRequest();
 		$this->assertSame('user_invite_request', $r->getSubtype());
 	}
 
 	// --- Invite CRUD ---
-
-	public function testCreatedUserInviteHasGuid(): void {
+    /**
+     * @return void
+     */
+    public function testCreatedUserInviteHasGuid(): void {
 		$i = $this->makeInvite();
 		$this->assertGreaterThan(0, $i->guid);
 		$this->assertSame('object', $i->type);
@@ -80,7 +98,10 @@ class EntityCrudTest extends IntegrationTestCase {
 		$i->delete();
 	}
 
-	public function testLoadedUserInviteIsInviteInstance(): void {
+	/**
+     * @return void
+     */
+    public function testLoadedUserInviteIsInviteInstance(): void {
 		$i = $this->makeInvite();
 		$guid = $i->guid;
 		_elgg_services()->entityCache->delete($guid);
@@ -89,7 +110,10 @@ class EntityCrudTest extends IntegrationTestCase {
 		$i->delete();
 	}
 
-	public function testOverridingSubtypeAttributeDoesNotPersistAsGroupInvite(): void {
+	/**
+     * @return void
+     */
+    public function testOverridingSubtypeAttributeDoesNotPersistAsGroupInvite(): void {
 		// Characterization: Invite::initializeAttributes hardcodes
 		// attributes['subtype'] = 'user_invite'. Setting
 		// attributes['subtype'] = 'group_invite' AFTER construction does
@@ -108,7 +132,10 @@ class EntityCrudTest extends IntegrationTestCase {
 		$i->delete();
 	}
 
-	public function testInviteDescriptionPersists(): void {
+	/**
+     * @return void
+     */
+    public function testInviteDescriptionPersists(): void {
 		$i = $this->makeInvite(['description' => 'invite body text']);
 		_elgg_services()->entityCache->delete($i->guid);
 		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($i->guid));
@@ -116,7 +143,10 @@ class EntityCrudTest extends IntegrationTestCase {
 		$i->delete();
 	}
 
-	public function testInviteTitlePersists(): void {
+	/**
+     * @return void
+     */
+    public function testInviteTitlePersists(): void {
 		$i = $this->makeInvite(['title' => 'invite title']);
 		_elgg_services()->entityCache->delete($i->guid);
 		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($i->guid));
@@ -124,15 +154,20 @@ class EntityCrudTest extends IntegrationTestCase {
 		$i->delete();
 	}
 
-	public function testInviteDeleteReturnsTruthy(): void {
+	/**
+     * @return void
+     */
+    public function testInviteDeleteReturnsTruthy(): void {
 		$i = $this->makeInvite();
 		$result = elgg_call(ELGG_IGNORE_ACCESS, fn() => $i->delete());
 		$this->assertNotFalse($result);
 	}
 
 	// --- InviteRequest CRUD ---
-
-	public function testCreatedInviteRequestHasGuid(): void {
+    /**
+     * @return void
+     */
+    public function testCreatedInviteRequestHasGuid(): void {
 		$r = $this->makeInviteRequest();
 		$this->assertGreaterThan(0, $r->guid);
 		$this->assertSame('object', $r->type);
@@ -140,7 +175,10 @@ class EntityCrudTest extends IntegrationTestCase {
 		$r->delete();
 	}
 
-	public function testLoadedInviteRequestIsInviteRequestInstance(): void {
+	/**
+     * @return void
+     */
+    public function testLoadedInviteRequestIsInviteRequestInstance(): void {
 		$r = $this->makeInviteRequest();
 		$guid = $r->guid;
 		_elgg_services()->entityCache->delete($guid);
@@ -149,7 +187,10 @@ class EntityCrudTest extends IntegrationTestCase {
 		$r->delete();
 	}
 
-	public function testInviteRequestDescriptionPersists(): void {
+	/**
+     * @return void
+     */
+    public function testInviteRequestDescriptionPersists(): void {
 		$r = $this->makeInviteRequest(['description' => 'request reason']);
 		_elgg_services()->entityCache->delete($r->guid);
 		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($r->guid));
