@@ -1,7 +1,7 @@
 {
     "name": "hypejunction/hypeinvite",
     "type": "elgg-plugin",
-    "description": "Invite-based user registration for Elgg — email invitations, invite-only networks, and group invitations.",
+    "description": "Invite-based user registration for Elgg \u2014 email invitations, invite-only networks, and group invitations.",
     "homepage": "https://github.com/hypeJunction/Elgg3-hypeInvite",
     "keywords": [
         "elgg",
@@ -38,5 +38,13 @@
         "allow-plugins": {
             "composer/installers": true
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }
