@@ -1,3 +1,23 @@
+<a name="7.0.0"></a>
+# 7.0.0 — Elgg 7.x migration
+
+### Breaking Changes
+
+* **Elgg 7.x**: Requires PHP 8.3+ and Elgg `~7.0.0`
+
+### Changes
+
+* `composer.json`: added the Elgg 7.x-required stability settings
+  (`minimum-stability: dev`, `prefer-stable: true`, asset-packagist repository)
+* Docker infra upgraded to the Elgg 7.x stack (`php:8.3-apache`,
+  `elgg/elgg ~7.0.0`, PHPUnit `^10.5 || ^11.0`); test admin password bumped
+  to 16 characters for the new `min_password_length` default
+* No plugin code changes were required — hypeInvite uses none of the APIs
+  removed or changed in Elgg 7.x
+* `ARCHITECTURE.md` updated for Elgg 7.x
+
+---
+
 <a name="6.0.0"></a>
 # 6.0.0 — Elgg 6.x migration
 

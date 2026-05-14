@@ -1,4 +1,4 @@
-# hypeInvite — Plugin Architecture (Elgg 6.x)
+# hypeInvite — Plugin Architecture (Elgg 7.x)
 
 An interface for inviting new users and managing group invitations on Elgg sites.
 
@@ -50,10 +50,10 @@ hypeinvite/
 │       ├── plugins/hypeInvite/            # Plugin settings view
 │       └── resources/                     # Page resources (friends/invite, groups/invite)
 ├── languages/                             # Translation files
-├── docker/                                # Per-plugin Elgg 6.x Docker stack
+├── docker/                                # Per-plugin Elgg 7.x Docker stack
 ├── elgg-plugin.php                        # Declarative plugin config
 ├── elgg-services.php                      # DI service registration (users.invites)
-└── composer.json                          # php >=8.2, ext-intl, elgg/elgg ~6.1.0
+└── composer.json                          # php >=8.3, ext-intl, elgg/elgg ~7.0.0
 ```
 
 ## Events Registered
@@ -116,13 +116,36 @@ them cleanly. The plugin owns entity subtypes, so a seeder is mandatory.
 
 ## JavaScript
 
-Elgg 6.x uses native ES modules (RequireJS/AMD removed). The plugin ships
+Elgg 6.x+ uses native ES modules (RequireJS/AMD removed). The plugin ships
 two `.mjs` modules:
 
 - `views/default/admin/users/requests.mjs` — imported via `elgg_import_esm()`
   in `views/default/admin/users/requests.php`
 - `views/default/object/user_invite_request/actions.mjs` — referenced as a
   menu-item `'deps'` entry in `views/default/object/user_invite_request/actions.php`
+
+## Migration Notes (6.x → 7.x)
+
+- `composer.json`: `php` `>=8.2` → `>=8.3`, `elgg/elgg` `~6.1.0` → `~7.0.0`
+- `composer.json`: added the Elgg 7.x-required stability settings
+  (`minimum-stability: dev`, `prefer-stable: true`, asset-packagist repository)
+  via the automated `composer-stability-settings-7x` rule
+- Docker infra upgraded to the Elgg 7.x stack (`php:8.3-apache`,
+  `elgg/elgg ~7.0.0`, PHPUnit `^10.5 || ^11.0`)
+- No code changes required — the plugin uses none of the APIs removed or
+  changed in Elgg 7.x: no `new ElggObject` (it uses the `Invite` /
+  `InviteRequest` subclasses), no CSS Crush syntax / `.css` files, no
+  Redis/Memcache config, no `Laminas\Mail`, no renamed notification handler
+  classes, no `ajax_response`/`forward` events, no removed button classes,
+  no `subpage` group routes, no `flush_cache`, no renamed members routes,
+  no messages `recipients` param, no external-pages integration, no custom
+  password validation, no river-emitting plugin entities, no CKEditor
+  customization, no likes integration, no web services
+- `elgg_list_entities` calls that need unlimited results already pass
+  `'limit' => 0` directly in the options array (not from a query string),
+  so the 7.x query-string limit clamping does not affect them
+- PHPUnit suite (34 tests) runs unchanged on PHPUnit 10.5 — no deprecated
+  annotations or assertion methods in use
 
 ## Migration Notes (5.x → 6.x)
 
