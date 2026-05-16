@@ -12,7 +12,7 @@
         "invite code"
     ],
     "extra": {
-        "installer-name": "hypeInvite",
+        "installer-name": "hypeinvite",
         "elgg-plugin": {
             "id": "hypeinvite"
         }
