@@ -2,7 +2,7 @@
     "name": "hypejunction/hypeinvite",
     "version": "5.0.0",
     "type": "elgg-plugin",
-    "description": "Invite-based user registration for Elgg — email invitations, invite-only networks, and group invitations.",
+    "description": "Invite-based user registration for Elgg \u2014 email invitations, invite-only networks, and group invitations.",
     "homepage": "https://github.com/hypeJunction/Elgg3-hypeInvite",
     "keywords": [
         "elgg",
@@ -12,7 +12,7 @@
         "invite code"
     ],
     "extra": {
-        "installer-name": "hypeInvite",
+        "installer-name": "hypeinvite",
         "elgg-plugin": {
             "id": "hypeinvite"
         }
