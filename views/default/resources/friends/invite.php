@@ -5,7 +5,7 @@ if (!elgg_get_plugin_setting('invite_friends', 'hypeInvite')) {
 }
 
 $username = elgg_extract('username', $vars);
-$user = get_user_by_username($username);
+$user = elgg_get_user_by_username($username);
 
 if (!$user || !$user->canEdit()) {
 	throw new \Elgg\Exceptions\Http\EntityPermissionsException();
