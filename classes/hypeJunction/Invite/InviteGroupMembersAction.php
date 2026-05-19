@@ -59,7 +59,7 @@ class InviteGroupMembersAction {
 				continue;
 			}
 
-			$users = get_user_by_email($email);
+			$users = elgg_get_user_by_email($email);
 			if ($users) {
 				$invitee_guids[] = $users[0]->guid;
 				continue;

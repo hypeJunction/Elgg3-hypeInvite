@@ -27,7 +27,7 @@ class ConfirmInviteAction {
 
 		$inviter = elgg_get_logged_in_user_entity();
 
-		$users = get_user_by_email($invite_request->email);
+		$users = elgg_get_user_by_email($invite_request->email);
 
 		$sent = false;
 

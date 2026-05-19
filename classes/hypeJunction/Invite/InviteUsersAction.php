@@ -44,7 +44,7 @@ class InviteUsersAction {
 				continue;
 			}
 
-			$users = get_user_by_email($email);
+			$users = elgg_get_user_by_email($email);
 
 			if ($users) {
 				if ($users[0] == $inviter) {
