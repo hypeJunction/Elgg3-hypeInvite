@@ -29,10 +29,10 @@ class AcceptGroupInvitesOnRegistration {
 			return;
 		}
 
-		$invite = elgg_extract('invite', $params);
-		$user = elgg_extract('user', $params);
+		$invite = \elgg_extract('invite', $params);
+		$user = \elgg_extract('user', $params);
 
-		elgg_call(ELGG_IGNORE_ACCESS, function () use ($invite, $user) {
+		\elgg_call(ELGG_IGNORE_ACCESS, function () use ($invite, $user) {
 
 			$groups = new \ElggBatch('elgg_get_entities', [
 				'types' => 'group',
@@ -44,7 +44,7 @@ class AcceptGroupInvitesOnRegistration {
 
 			$ref = get_input('ref');
 
-			$accept_on_register = elgg_get_plugin_setting('groups_accept_on_register', 'hypeInvite');
+			$accept_on_register = \elgg_get_plugin_setting('groups_accept_on_register', 'hypeInvite');
 
 			foreach ($groups as $group) {
 				add_entity_relationship($group->guid, 'invited', $user->guid);
@@ -61,9 +61,9 @@ class AcceptGroupInvitesOnRegistration {
 
 				if ($accept_on_register || $ref == $group->guid) {
 					if ($group->join($user)) {
-						$subject = elgg_echo('groups:welcome:subject', [$group->getDisplayName()], $user->language);
+						$subject = \elgg_echo('groups:welcome:subject', [$group->getDisplayName()], $user->language);
 
-						$body = elgg_echo('groups:welcome:body', [
+						$body = \elgg_echo('groups:welcome:body', [
 							$user->getDisplayName(),
 							$group->getDisplayName(),
 							$group->getURL(),

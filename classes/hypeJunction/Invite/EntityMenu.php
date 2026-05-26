@@ -22,15 +22,15 @@ class EntityMenu {
 			return;
 		}
 
-		$user = elgg_get_logged_in_user_entity();
+		$user = \elgg_get_logged_in_user_entity();
 
-		if ($group->isMember($user) && ($group->owner_guid == $user->guid || $group->isToolEnabled('invites') || elgg_is_admin_logged_in())) {
+		if ($group->isMember($user) && ($group->owner_guid == $user->guid || $group->isToolEnabled('invites') || \elgg_is_admin_logged_in())) {
 			$menu[] = \ElggMenuItem::factory([
 				'name' => 'groups:invite',
-				'href' => elgg_generate_url("invite:group:$group->subtype", [
+				'href' => \elgg_generate_url("invite:group:$group->subtype", [
 					'guid' => $group->guid,
 				]),
-				'text' => elgg_echo('groups:invite'),
+				'text' => \elgg_echo('groups:invite'),
 				'icon' => 'user-plus',
 				'priority' => 100,
 			]);

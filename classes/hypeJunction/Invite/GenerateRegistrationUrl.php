@@ -26,7 +26,7 @@ class GenerateRegistrationUrl {
 		$registration_url = $hook->getValue();
 
 		if (!$registration_url) {
-			$registration_url = elgg_normalize_url('register');
+			$registration_url = \elgg_normalize_url('register');
 		}
 
 		$email = $hook->getParam('email');
@@ -62,7 +62,7 @@ class GenerateRegistrationUrl {
 
 		$invite_codes = (array) $user_invite->invite_codes;
 
-		return elgg_http_add_url_query_elements($registration_url, [
+		return \elgg_http_add_url_query_elements($registration_url, [
 			'e' => $email,
 			'ts' => $time,
 			'friend_guid' => $friend_guid,

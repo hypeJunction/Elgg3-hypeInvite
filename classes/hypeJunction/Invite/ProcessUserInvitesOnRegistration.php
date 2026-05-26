@@ -28,7 +28,7 @@ class ProcessUserInvitesOnRegistration {
 		$email = $user->email;
 		$code = get_input('invitation_code');
 
-		elgg_call(ELGG_IGNORE_ACCESS, function() use ($user, $email, $code) {
+		\elgg_call(ELGG_IGNORE_ACCESS, function() use ($user, $email, $code) {
 			$svc = elgg()->{'users.invites'};
 			/* @var $svc \hypeJunction\Invite\InviteService */
 
@@ -54,7 +54,7 @@ class ProcessUserInvitesOnRegistration {
 					'invite' => $invite,
 					'user' => $user,
 				];
-				if (elgg_trigger_plugin_hook('accept', 'invite', $params, true)) {
+				if (\elgg_trigger_plugin_hook('accept', 'invite', $params, true)) {
 					$invite->delete();
 				}
 			}

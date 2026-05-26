@@ -23,16 +23,16 @@ class BootstrapTest extends IntegrationTestCase {
 	// --- plugin lifecycle ---
 
 	public function testPluginIsRegistered() {
-		$plugin = elgg_get_plugin_from_id('hypeinvite');
+		$plugin = \elgg_get_plugin_from_id('hypeinvite');
 		$this->assertInstanceOf(\ElggPlugin::class, $plugin);
 	}
 
 	public function testPluginIsEnabled() {
-		$this->assertTrue(elgg_get_plugin_from_id('hypeinvite')->isEnabled());
+		$this->assertTrue(\elgg_get_plugin_from_id('hypeinvite')->isEnabled());
 	}
 
 	public function testPluginIsActive() {
-		$this->assertTrue(elgg_get_plugin_from_id('hypeinvite')->isActive());
+		$this->assertTrue(\elgg_get_plugin_from_id('hypeinvite')->isActive());
 	}
 
 	// --- class autoloading ---
@@ -62,15 +62,15 @@ class BootstrapTest extends IntegrationTestCase {
 	// --- entity subtype mappings (3 subtypes, 2 classes) ---
 
 	public function testUserInviteSubtypeMappedToInvite() {
-		$this->assertSame(Invite::class, elgg_get_entity_class('object', 'user_invite'));
+		$this->assertSame(Invite::class, \elgg_get_entity_class('object', 'user_invite'));
 	}
 
 	public function testGroupInviteSubtypeMappedToInvite() {
-		$this->assertSame(Invite::class, elgg_get_entity_class('object', 'group_invite'));
+		$this->assertSame(Invite::class, \elgg_get_entity_class('object', 'group_invite'));
 	}
 
 	public function testUserInviteRequestSubtypeMappedToInviteRequest() {
-		$this->assertSame(InviteRequest::class, elgg_get_entity_class('object', 'user_invite_request'));
+		$this->assertSame(InviteRequest::class, \elgg_get_entity_class('object', 'user_invite_request'));
 	}
 
 	public function testInviteSubtypeConstant() {
@@ -87,15 +87,15 @@ class BootstrapTest extends IntegrationTestCase {
 	// --- actions ---
 
 	public function testPublicRequestInvitationActionRegistered() {
-		$this->assertTrue(_elgg_services()->actions->exists('users/request_invitation'));
+		$this->assertTrue(\_elgg_services()->actions->exists('users/request_invitation'));
 	}
 
 	public function testRegularInviteUsersActionRegistered() {
-		$this->assertTrue(_elgg_services()->actions->exists('users/invite'));
+		$this->assertTrue(\_elgg_services()->actions->exists('users/invite'));
 	}
 
 	public function testRegularInviteGroupMembersActionRegistered() {
-		$this->assertTrue(_elgg_services()->actions->exists('groups/invite'));
+		$this->assertTrue(\_elgg_services()->actions->exists('groups/invite'));
 	}
 
 	public function testAdminOnlyConfirmInvitationIsRegisteredByController() {
@@ -106,37 +106,37 @@ class BootstrapTest extends IntegrationTestCase {
 		// controller form registers regardless of session, and access
 		// control runs at dispatch instead of registration. Pin the
 		// declarative-controller behavior.
-		$this->assertTrue(_elgg_services()->actions->exists('users/confirm_invitation'));
+		$this->assertTrue(\_elgg_services()->actions->exists('users/confirm_invitation'));
 	}
 
 	// --- declarative hook wiring (elgg-plugin.php 'hooks' block) ---
 
 	public function testRegistrationUrlHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = \_elgg_services()->hooks->getAllHandlers();
 		$this->assertArrayHasKey('registration_url', $handlers);
 		$this->assertArrayHasKey('site', $handlers['registration_url']);
 	}
 
 	public function testAcceptInviteHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = \_elgg_services()->hooks->getAllHandlers();
 		$this->assertArrayHasKey('accept', $handlers);
 		$this->assertArrayHasKey('invite', $handlers['accept']);
 	}
 
 	public function testRegisterUserHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = \_elgg_services()->hooks->getAllHandlers();
 		$this->assertArrayHasKey('register', $handlers);
 		$this->assertArrayHasKey('user', $handlers['register']);
 	}
 
 	public function testPageMenuHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = \_elgg_services()->hooks->getAllHandlers();
 		$this->assertArrayHasKey('register', $handlers);
 		$this->assertArrayHasKey('menu:page', $handlers['register']);
 	}
 
 	public function testEntityMenuHookWired() {
-		$handlers = _elgg_services()->hooks->getAllHandlers();
+		$handlers = \_elgg_services()->hooks->getAllHandlers();
 		$this->assertArrayHasKey('register', $handlers);
 		$this->assertArrayHasKey('menu:entity', $handlers['register']);
 	}
@@ -144,7 +144,7 @@ class BootstrapTest extends IntegrationTestCase {
 	// --- declarative event wiring ---
 
 	public function testCreateUserEventWired() {
-		$events = _elgg_services()->events->getAllHandlers();
+		$events = \_elgg_services()->events->getAllHandlers();
 		$this->assertArrayHasKey('create', $events);
 		$this->assertArrayHasKey('user', $events['create']);
 	}
