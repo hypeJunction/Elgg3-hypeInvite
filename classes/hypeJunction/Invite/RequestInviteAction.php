@@ -18,8 +18,8 @@ class RequestInviteAction {
 	 */
 	public function __invoke(Request $request) {
 
-		return elgg_call(ELGG_IGNORE_ACCESS, function () use ($request) {
-			$site = elgg_get_site_entity();
+		return \elgg_call(ELGG_IGNORE_ACCESS, function () use ($request) {
+			$site = \elgg_get_site_entity();
 
 			$invite_request = new InviteRequest();
 			$invite_request->owner_guid = $site->guid;
@@ -31,29 +31,29 @@ class RequestInviteAction {
 
 			$invite_request->save();
 
-			$to = elgg_get_admins([
+			$to = \elgg_get_admins([
 				'callback' => function($e) {
 					return $e->guid;
 				}
 			]);
 
-			$subject = elgg_echo('users:invite:request:notify:subject');
-			$message = elgg_echo('users:invite:request:notify:message', [
+			$subject = \elgg_echo('users:invite:request:notify:subject');
+			$message = \elgg_echo('users:invite:request:notify:message', [
 				$invite_request->name,
 				$invite_request->email,
 				$invite_request->message,
-				elgg_normalize_url('admin/users/requests'),
+				\elgg_normalize_url('admin/users/requests'),
 			]);
 
 			notify_user($to, null, $subject, $message, [
 				'action' => 'create',
 				'object' => $invite_request,
-				'url' => elgg_normalize_url('admin/users/requests'),
+				'url' => \elgg_normalize_url('admin/users/requests'),
 			]);
 
-			return elgg_ok_response([
+			return \elgg_ok_response([
 				'entity' => $invite_request,
-			], elgg_echo('users:invite:request:success'), '');
+			], \elgg_echo('users:invite:request:success'), '');
 		});
 	}
 }

@@ -25,10 +25,10 @@ class AcceptFriendInvitesOnRegistration {
 			return;
 		}
 
-		$invite = elgg_extract('invite', $params);
-		$user = elgg_extract('user', $params);
+		$invite = \elgg_extract('invite', $params);
+		$user = \elgg_extract('user', $params);
 
-		elgg_call(ELGG_IGNORE_ACCESS, function () use ($invite, $user) {
+		\elgg_call(ELGG_IGNORE_ACCESS, function () use ($invite, $user) {
 			$inviters = new \ElggBatch('elgg_get_entities', [
 				'types' => 'user',
 				'relationship' => 'invited_by',
@@ -37,13 +37,13 @@ class AcceptFriendInvitesOnRegistration {
 				'limit' => 0,
 			]);
 
-			$accept_on_register = elgg_get_plugin_setting('friends_accept_on_register', 'hypeInvite');
+			$accept_on_register = \elgg_get_plugin_setting('friends_accept_on_register', 'hypeInvite');
 
 			// We will respect friend_request setting for river events
 			$add_to_river = true;
 			$relationship = 'friend';
-			if (elgg_is_active_plugin('friend_request')) {
-				$add_to_river = elgg_get_plugin_setting('add_river', 'friend_request') !== 'no';
+			if (\elgg_is_active_plugin('friend_request')) {
+				$add_to_river = \elgg_get_plugin_setting('add_river', 'friend_request') !== 'no';
 				$relationship = 'friendrequest';
 			}
 

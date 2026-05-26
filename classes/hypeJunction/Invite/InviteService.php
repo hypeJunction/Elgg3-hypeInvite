@@ -23,8 +23,8 @@ class InviteService {
 			return $user_invite;
 		}
 
-		return elgg_call(ELGG_IGNORE_ACCESS, function () use ($email) {
-			$site = elgg_get_site_entity();
+		return \elgg_call(ELGG_IGNORE_ACCESS, function () use ($email) {
+			$site = \elgg_get_site_entity();
 			$user_invite = new Invite();
 			$user_invite->setSubtype('user_invite');
 			$user_invite->owner_guid = $site->guid;
@@ -46,8 +46,8 @@ class InviteService {
 	 * @throws Exception
 	 */
 	public function getInvite($email) {
-		return elgg_call(ELGG_IGNORE_ACCESS, function () use ($email) {
-			$invites = elgg_get_entities(['types' => 'object', 'subtypes' => 'user_invite', 'metadata_name_value_pairs' => ['email' => $email], 'limit' => 1]);
+		return \elgg_call(ELGG_IGNORE_ACCESS, function () use ($email) {
+			$invites = \elgg_get_entities(['types' => 'object', 'subtypes' => 'user_invite', 'metadata_name_value_pairs' => ['email' => $email], 'limit' => 1]);
 			return $invites ? $invites[0] : false;
 		});
 	}
@@ -61,8 +61,8 @@ class InviteService {
 	 * @throws Exception
 	 */
 	public function getInviteByCode($invite_code) {
-		return elgg_call(ELGG_IGNORE_ACCESS, function () use ($invite_code) {
-			$invites = elgg_get_entities(['types' => 'object', 'subtypes' => 'user_invite', 'metadata_name_value_pairs' => ['name' => 'invite_codes', 'value' => $invite_code], 'limit' => 1]);
+		return \elgg_call(ELGG_IGNORE_ACCESS, function () use ($invite_code) {
+			$invites = \elgg_get_entities(['types' => 'object', 'subtypes' => 'user_invite', 'metadata_name_value_pairs' => ['name' => 'invite_codes', 'value' => $invite_code], 'limit' => 1]);
 			return $invites ? $invites[0] : false;
 		});
 	}
@@ -91,7 +91,7 @@ class InviteService {
 	 * @throws Exception
 	 */
 	public function validateInviteCode($email, $invite_code) {
-		$invitation_codes = elgg_get_plugin_setting('invitation_codes', 'hypeInvite');
+		$invitation_codes = \elgg_get_plugin_setting('invitation_codes', 'hypeInvite');
 		if ($invitation_codes) {
 			$invitation_codes = explode(PHP_EOL, $invitation_codes);
 			array_walk($invitation_codes, 'trim');
@@ -100,8 +100,8 @@ class InviteService {
 			}
 		}
 
-		return elgg_call(ELGG_IGNORE_ACCESS, function () use ($email, $invite_code) {
-			$invites = elgg_get_entities(['types' => 'object', 'subtypes' => 'user_invite', 'metadata_name_value_pairs' => [['name' => 'email', 'value' => $email], ['name' => 'invite_codes', 'value' => $invite_code]], 'count' => true]);
+		return \elgg_call(ELGG_IGNORE_ACCESS, function () use ($email, $invite_code) {
+			$invites = \elgg_get_entities(['types' => 'object', 'subtypes' => 'user_invite', 'metadata_name_value_pairs' => [['name' => 'email', 'value' => $email], ['name' => 'invite_codes', 'value' => $invite_code]], 'count' => true]);
 			return $invites > 0;
 		});
 	}
