@@ -20,7 +20,7 @@ class RegistrationMiddleware {
 	 */
 	public function __invoke(Request $request) {
 
-		if (!elgg_get_plugin_setting('invite_only_network', 'hypeInvite')) {
+		if (!\elgg_get_plugin_setting('invite_only_network', 'hypeInvite')) {
 			return;
 		}
 
@@ -28,8 +28,8 @@ class RegistrationMiddleware {
 		$code = $request->getParam('invitation_code');
 
 		if (empty($email) || empty($code)) {
-			if (elgg_get_plugin_setting('request_invitation', 'hypeInvite')) {
-				$redirect_url = elgg_generate_url('invite:request');
+			if (\elgg_get_plugin_setting('request_invitation', 'hypeInvite')) {
+				$redirect_url = \elgg_generate_url('invite:request');
 				$exception = new HttpException('', ELGG_HTTP_FORBIDDEN);
 				$exception->setRedirectUrl($redirect_url);
 				throw $exception;
@@ -40,8 +40,8 @@ class RegistrationMiddleware {
 		/* @var $svc \hypeJunction\Invite\InviteService */
 
 		if (!$svc->validateInviteCode($email, $code)) {
-			elgg_make_sticky_form('register');
-			throw new HttpException(elgg_echo('users:invite:invitation_code:mismatch'), ELGG_HTTP_BAD_REQUEST);
+			\elgg_make_sticky_form('register');
+			throw new HttpException(\elgg_echo('users:invite:invitation_code:mismatch'), ELGG_HTTP_BAD_REQUEST);
 		}
 	}
 }

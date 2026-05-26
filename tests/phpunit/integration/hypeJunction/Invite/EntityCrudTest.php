@@ -30,7 +30,7 @@ class EntityCrudTest extends IntegrationTestCase {
      * @return Invite
      */
     private function makeInvite(array $overrides = []): Invite {
-		return elgg_call(ELGG_IGNORE_ACCESS, function () use ($overrides) {
+		return \elgg_call(ELGG_IGNORE_ACCESS, function () use ($overrides) {
 			$user = $overrides['__user'] ?? $this->createUser();
 			$i = new Invite();
 			if (isset($overrides['subtype'])) {
@@ -55,7 +55,7 @@ class EntityCrudTest extends IntegrationTestCase {
      * @return InviteRequest
      */
     private function makeInviteRequest(array $overrides = []): InviteRequest {
-		return elgg_call(ELGG_IGNORE_ACCESS, function () use ($overrides) {
+		return \elgg_call(ELGG_IGNORE_ACCESS, function () use ($overrides) {
 			$user = $overrides['__user'] ?? $this->createUser();
 			$r = new InviteRequest();
 			$r->owner_guid = $overrides['owner_guid'] ?? $user->guid;
@@ -104,8 +104,8 @@ class EntityCrudTest extends IntegrationTestCase {
     public function testLoadedUserInviteIsInviteInstance(): void {
 		$i = $this->makeInvite();
 		$guid = $i->guid;
-		_elgg_services()->entityCache->delete($guid);
-		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($guid));
+		\_elgg_services()->entityCache->delete($guid);
+		$loaded = \elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($guid));
 		$this->assertInstanceOf(Invite::class, $loaded);
 		$i->delete();
 	}
@@ -125,8 +125,8 @@ class EntityCrudTest extends IntegrationTestCase {
 		// current footgun so a future fix surfaces as a test update.
 		$i = $this->makeInvite(['subtype' => 'group_invite']);
 		$guid = $i->guid;
-		_elgg_services()->entityCache->delete($guid);
-		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($guid));
+		\_elgg_services()->entityCache->delete($guid);
+		$loaded = \elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($guid));
 		$this->assertInstanceOf(Invite::class, $loaded);
 		$this->assertSame('user_invite', $loaded->getSubtype());
 		$i->delete();
@@ -137,8 +137,8 @@ class EntityCrudTest extends IntegrationTestCase {
      */
     public function testInviteDescriptionPersists(): void {
 		$i = $this->makeInvite(['description' => 'invite body text']);
-		_elgg_services()->entityCache->delete($i->guid);
-		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($i->guid));
+		\_elgg_services()->entityCache->delete($i->guid);
+		$loaded = \elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($i->guid));
 		$this->assertSame('invite body text', (string) $loaded->description);
 		$i->delete();
 	}
@@ -148,8 +148,8 @@ class EntityCrudTest extends IntegrationTestCase {
      */
     public function testInviteTitlePersists(): void {
 		$i = $this->makeInvite(['title' => 'invite title']);
-		_elgg_services()->entityCache->delete($i->guid);
-		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($i->guid));
+		\_elgg_services()->entityCache->delete($i->guid);
+		$loaded = \elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($i->guid));
 		$this->assertSame('invite title', (string) $loaded->title);
 		$i->delete();
 	}
@@ -159,7 +159,7 @@ class EntityCrudTest extends IntegrationTestCase {
      */
     public function testInviteDeleteReturnsTruthy(): void {
 		$i = $this->makeInvite();
-		$result = elgg_call(ELGG_IGNORE_ACCESS, fn() => $i->delete());
+		$result = \elgg_call(ELGG_IGNORE_ACCESS, fn() => $i->delete());
 		$this->assertNotFalse($result);
 	}
 
@@ -181,8 +181,8 @@ class EntityCrudTest extends IntegrationTestCase {
     public function testLoadedInviteRequestIsInviteRequestInstance(): void {
 		$r = $this->makeInviteRequest();
 		$guid = $r->guid;
-		_elgg_services()->entityCache->delete($guid);
-		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($guid));
+		\_elgg_services()->entityCache->delete($guid);
+		$loaded = \elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($guid));
 		$this->assertInstanceOf(InviteRequest::class, $loaded);
 		$r->delete();
 	}
@@ -192,8 +192,8 @@ class EntityCrudTest extends IntegrationTestCase {
      */
     public function testInviteRequestDescriptionPersists(): void {
 		$r = $this->makeInviteRequest(['description' => 'request reason']);
-		_elgg_services()->entityCache->delete($r->guid);
-		$loaded = elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($r->guid));
+		\_elgg_services()->entityCache->delete($r->guid);
+		$loaded = \elgg_call(ELGG_IGNORE_ACCESS, fn() => get_entity($r->guid));
 		$this->assertSame('request reason', (string) $loaded->description);
 		$r->delete();
 	}
