@@ -44,7 +44,7 @@ class AcceptGroupInvitesOnRegistration {
 
 			$ref = get_input('ref');
 
-			$accept_on_register = \elgg_get_plugin_setting('groups_accept_on_register', 'hypeInvite');
+			$accept_on_register = \elgg_get_plugin_setting('groups_accept_on_register', 'hypeinvite');
 
 			foreach ($groups as $group) {
 				add_entity_relationship($group->guid, 'invited', $user->guid);

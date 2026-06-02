@@ -18,7 +18,7 @@ class PageMenu {
 
 		$menu = $hook->getValue();
 
-		if (\elgg_get_plugin_setting('invite_friends', 'hypeInvite')) {
+		if (\elgg_get_plugin_setting('invite_friends', 'hypeinvite')) {
 			$page_owner = \elgg_get_page_owner_entity();
 
 			if ($page_owner instanceof \ElggUser) {

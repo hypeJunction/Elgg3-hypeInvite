@@ -40,7 +40,7 @@ class RegistrationForwardUrl {
 			$entity = get_entity($ref);
 
 			if ($entity instanceof \ElggGroup) {
-				if (\elgg_get_plugin_setting('groups_accept_on_register', 'hypeInvite')) {
+				if (\elgg_get_plugin_setting('groups_accept_on_register', 'hypeinvite')) {
 					$forward_url = $entity->getURL();
 				} else if (\elgg_is_active_plugin('groups')) {
 					$forward_url = \elgg_generate_url('collection:group:group:invitations', [
@@ -48,7 +48,7 @@ class RegistrationForwardUrl {
 					]);
 				}
 			} else if ($entity instanceof \ElggUser) {
-				if (\elgg_get_plugin_setting('friends_accept_on_register', 'hypeInvite')) {
+				if (\elgg_get_plugin_setting('friends_accept_on_register', 'hypeinvite')) {
 					$forward_url = $entity->getURL();
 				} else if (\elgg_is_active_plugin('friend_request')) {
 					$forward_url = \elgg_normalize_url("friend_request/$user->username/received");

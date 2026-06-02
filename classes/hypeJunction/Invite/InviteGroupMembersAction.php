@@ -69,7 +69,7 @@ class InviteGroupMembersAction {
 				continue;
 			}
 
-			if (!\elgg_get_plugin_setting('invite_groups', 'hypeInvite')) {
+			if (!\elgg_get_plugin_setting('invite_groups', 'hypeinvite')) {
 				$error++;
 				continue;
 			}
@@ -101,7 +101,7 @@ class InviteGroupMembersAction {
 
 			$site = \elgg_get_site_entity();
 
-			$show_invite_code = \elgg_get_plugin_setting('invite_code_register_form', 'hypeInvite', true);
+			$show_invite_code = \elgg_get_plugin_setting('invite_code_register_form', 'hypeinvite', true);
 
 			$notification_params = [
 				'inviter' => $inviter->getDisplayName(),

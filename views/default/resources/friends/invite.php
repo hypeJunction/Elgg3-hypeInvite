@@ -1,6 +1,6 @@
 <?php
 
-if (!elgg_get_plugin_setting('invite_friends', 'hypeInvite')) {
+if (!elgg_get_plugin_setting('invite_friends', 'hypeinvite')) {
 	throw new \Elgg\Exceptions\Http\PageNotFoundException();
 }
 

@@ -81,7 +81,7 @@ class InviteUsersAction {
 
 			add_entity_relationship($user_invite->guid, 'invited_by', $inviter->guid);
 
-			$show_invite_code = \elgg_get_plugin_setting('invite_code_register_form', 'hypeInvite', true);
+			$show_invite_code = \elgg_get_plugin_setting('invite_code_register_form', 'hypeinvite', true);
 
 			$site = \elgg_get_site_entity();
 

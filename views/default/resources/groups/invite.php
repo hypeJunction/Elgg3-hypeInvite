@@ -5,8 +5,6 @@ elgg_gatekeeper();
 $guid = elgg_extract('guid', $vars);
 elgg_set_page_owner_guid($guid);
 
-elgg_group_gatekeeper();
-
 $title = elgg_echo('groups:invite:title');
 
 $group = get_entity($guid);
@@ -14,6 +12,8 @@ if (!$group instanceof ElggGroup) {
 	register_error(elgg_echo('groups:noaccess'));
 	forward(REFERER);
 }
+
+_elgg_services()->gatekeeper->assertAccessibleGroup($group);
 
 if (!$group->canEdit() && (!$group->isMember() || $group->invites_enable !== 'yes')) {
 	register_error(elgg_echo('groups:noaccess'));

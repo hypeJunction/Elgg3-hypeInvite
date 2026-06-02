@@ -36,7 +36,7 @@ class AcceptFriendInvitesOnRegistration {
 				'limit' => 0,
 			]);
 
-			$accept_on_register = \elgg_get_plugin_setting('friends_accept_on_register', 'hypeInvite');
+			$accept_on_register = \elgg_get_plugin_setting('friends_accept_on_register', 'hypeinvite');
 
 			// We will respect friend_request setting for river events
 			$add_to_river = true;
