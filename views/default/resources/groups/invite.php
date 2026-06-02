@@ -12,12 +12,12 @@ $title = elgg_echo('groups:invite:title');
 $group = get_entity($guid);
 if (!$group instanceof ElggGroup) {
 	register_error(elgg_echo('groups:noaccess'));
-	forward(REFERER);
+	forward(REFERRER);
 }
 
 if (!$group->canEdit() && (!$group->isMember() || $group->invites_enable !== 'yes')) {
 	register_error(elgg_echo('groups:noaccess'));
-	forward(REFERER);
+	forward(REFERRER);
 }
 
 $content = elgg_view_form('groups/invite', [
