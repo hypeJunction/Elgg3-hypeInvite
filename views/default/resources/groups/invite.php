@@ -5,19 +5,20 @@ elgg_gatekeeper();
 $guid = elgg_extract('guid', $vars);
 elgg_set_page_owner_guid($guid);
 
+// TODO(6.x): elgg_group_gatekeeper removed — replace with appropriate group access gatekeeper
 elgg_group_gatekeeper();
 
 $title = elgg_echo('groups:invite:title');
 
 $group = get_entity($guid);
 if (!$group instanceof ElggGroup) {
-	register_error(elgg_echo('groups:noaccess'));
-	forward(REFERER);
+	elgg_register_error_message(elgg_echo('groups:noaccess'));
+	elgg_redirect_response(REFERER);
 }
 
 if (!$group->canEdit() && (!$group->isMember() || $group->invites_enable !== 'yes')) {
-	register_error(elgg_echo('groups:noaccess'));
-	forward(REFERER);
+	elgg_register_error_message(elgg_echo('groups:noaccess'));
+	elgg_redirect_response(REFERER);
 }
 
 $content = elgg_view_form('groups/invite', [

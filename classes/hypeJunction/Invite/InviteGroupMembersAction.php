@@ -218,19 +218,19 @@ class InviteGroupMembersAction {
 
 		$total = $error + $invited + $skipped + $added;
 		if ($invited) {
-			system_message(\elgg_echo('groups:invite:result:invited', [$invited, $total]));
+			\elgg_register_success_message(\elgg_echo('groups:invite:result:invited', [$invited, $total]));
 		}
 
 		if ($added) {
-			system_message(\elgg_echo('groups:invite:result:added', [$added, $total]));
+			\elgg_register_success_message(\elgg_echo('groups:invite:result:added', [$added, $total]));
 		}
 
 		if ($skipped) {
-			system_message(\elgg_echo('groups:invite:result:skipped', [$skipped, $total]));
+			\elgg_register_success_message(\elgg_echo('groups:invite:result:skipped', [$skipped, $total]));
 		}
 
 		if ($error) {
-			register_error(\elgg_echo('groups:invite:result:error', [$error, $total]));
+			\elgg_register_error_message(\elgg_echo('groups:invite:result:error', [$error, $total]));
 		}
 
 		return \elgg_ok_response();
