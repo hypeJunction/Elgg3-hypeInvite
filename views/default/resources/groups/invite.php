@@ -5,8 +5,7 @@ elgg_gatekeeper();
 $guid = elgg_extract('guid', $vars);
 elgg_set_page_owner_guid($guid);
 
-// TODO(6.x): elgg_group_gatekeeper removed — replace with appropriate group access gatekeeper
-elgg_group_gatekeeper();
+elgg_entity_gatekeeper($guid, 'group');
 
 $title = elgg_echo('groups:invite:title');
 
