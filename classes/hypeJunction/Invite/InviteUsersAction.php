@@ -108,15 +108,15 @@ class InviteUsersAction {
 
 		$total = $error + $invited + $skipped;
 		if ($invited) {
-			system_message(elgg_echo('users:invite:result:invited', [$invited, $total]));
+			elgg_register_success_message(elgg_echo('users:invite:result:invited', [$invited, $total]));
 		}
 
 		if ($skipped) {
-			system_message(elgg_echo('users:invite:result:skipped', [$skipped, $total]));
+			elgg_register_success_message(elgg_echo('users:invite:result:skipped', [$skipped, $total]));
 		}
 
 		if ($error) {
-			register_error(elgg_echo('users:invite:result:error', [$error, $total]));
+			elgg_register_error_message(elgg_echo('users:invite:result:error', [$error, $total]));
 		}
 
 		return elgg_ok_response();
