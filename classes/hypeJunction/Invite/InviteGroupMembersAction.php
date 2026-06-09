@@ -41,7 +41,7 @@ class InviteGroupMembersAction {
 		$error = 0;
 
 		if ($invitee_guids && !is_array($invitee_guids)) {
-			$invitee_guids = string_to_tag_array($invitee_guids);
+			$invitee_guids = elgg_string_to_array((string) $invitee_guids);
 		}
 
 		$emails = preg_split('/$\R?^/m', $emails);
@@ -59,9 +59,9 @@ class InviteGroupMembersAction {
 				continue;
 			}
 
-			$users = elgg_get_user_by_email($email);
-			if ($users) {
-				$invitee_guids[] = $users[0]->guid;
+			$user = elgg_get_user_by_email($email);
+			if ($user) {
+				$invitee_guids[] = $user->guid;
 				continue;
 			}
 
@@ -81,7 +81,7 @@ class InviteGroupMembersAction {
 			}
 
 			$new = true;
-			if (check_entity_relationship($group_invite->guid, 'invited_to', $group->guid)) {
+			if ($group_invite->hasRelationship($group->guid, 'invited_to')) {
 				$new = false;
 			}
 
@@ -90,8 +90,8 @@ class InviteGroupMembersAction {
 				continue;
 			}
 
-			add_entity_relationship($group_invite->guid, 'invited_by', $inviter->guid);
-			add_entity_relationship($group_invite->guid, 'invited_to', $group->guid);
+			$group_invite->addRelationship($inviter->guid, 'invited_by');
+			$group_invite->addRelationship($group->guid, 'invited_to');
 
 			$link = users_invite_get_registration_link($email, $inviter->guid, $request->getParam('params', []));
 			$link = elgg_http_add_url_query_elements($link, [
@@ -117,7 +117,12 @@ class InviteGroupMembersAction {
 			$subject = elgg_echo('groups:invite:notify:subject', [$group->getDisplayName()]);
 			$body = elgg_echo('groups:invite:notify:body', $notification_params);
 
-			$sent = elgg_send_email($site->email, $email, $subject, $body);
+			$sent = elgg_send_email([
+				'from' => $site->email,
+				'to' => $email,
+				'subject' => $subject,
+				'body' => $body,
+			]);
 			if ($sent) {
 				$invited++;
 			} else {
@@ -130,13 +135,13 @@ class InviteGroupMembersAction {
 				continue;
 			}
 
-			$invitee = get_entity($invitee_guid);
+			$invitee = $invitee_guid ? get_entity((int) $invitee_guid) : null;
 			if (!$invitee instanceof \ElggUser) {
 				$error++;
 				continue;
 			}
 
-			if (check_entity_relationship($invitee->guid, 'member', $group->guid)) {
+			if ($invitee->hasRelationship($group->guid, 'member')) {
 				$skipped++;
 				continue;
 			}
@@ -151,14 +156,14 @@ class InviteGroupMembersAction {
 				continue;
 			}
 
-			if (check_entity_relationship($group->guid, 'invited', $invitee->guid)) {
+			if ($group->hasRelationship($invitee->guid, 'invited')) {
 				if (!$resend) {
 					$skipped++;
 					continue;
 				}
 			}
 
-			add_entity_relationship($group->guid, 'invited', $invitee->guid);
+			$group->addRelationship($invitee->guid, 'invited');
 
 			$hmac = elgg_build_hmac([
 				'i' => (int) $invitee->guid,
@@ -198,6 +203,8 @@ class InviteGroupMembersAction {
 			$params = [
 				'action' => 'invite',
 				'object' => $group,
+				'subject' => $subject,
+				'body' => $body,
 				'summary' => $summary,
 				'template' => 'groups_invite_user',
 				'links' => [
@@ -208,7 +215,7 @@ class InviteGroupMembersAction {
 				]),
 			];
 
-			$result = notify_user($invitee->getGUID(), $inviter->guid, $subject, $body, $params);
+			$result = elgg_notify_user($invitee, 'invite', $group, $params, $inviter);
 			if ($result) {
 				$invited++;
 			} else {

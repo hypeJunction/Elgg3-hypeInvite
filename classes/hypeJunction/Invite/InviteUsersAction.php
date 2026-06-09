@@ -44,16 +44,16 @@ class InviteUsersAction {
 				continue;
 			}
 
-			$users = elgg_get_user_by_email($email);
+			$user = elgg_get_user_by_email($email);
 
-			if ($users) {
-				if ($users[0] == $inviter) {
+			if ($user) {
+				if ($user->guid == $inviter->guid) {
 					$skipped++;
 					continue;
 				}
 
-				if (elgg_is_active_plugin('friend_request') && !$inviter->isFriendsWith($users[0]->guid)) {
-					add_entity_relationship($inviter->guid, 'friendrequest', $users[0]->guid);
+				if (elgg_is_active_plugin('friend_request') && !$inviter->isFriendsWith($user->guid)) {
+					$inviter->addRelationship($user->guid, 'friendrequest');
 				}
 
 				$skipped++;
@@ -80,7 +80,7 @@ class InviteUsersAction {
 
 			$invite_codes = (array) $user_invite->invite_codes;
 
-			add_entity_relationship($user_invite->guid, 'invited_by', $inviter->guid);
+			$user_invite->addRelationship($inviter->guid, 'invited_by');
 
 			$show_invite_code = elgg_get_plugin_setting('invite_code_register_form', 'hypeInvite', true);
 
@@ -98,7 +98,12 @@ class InviteUsersAction {
 			$subject = elgg_echo('users:invite:notify:subject', [$site->getDisplayName()]);
 			$body = elgg_echo('users:invite:notify:body', $notification_params);
 
-			$sent = elgg_send_email($site->email, $email, $subject, $body);
+			$sent = elgg_send_email([
+				'from' => $site->email,
+				'to' => $email,
+				'subject' => $subject,
+				'body' => $body,
+			]);
 			if ($sent) {
 				$invited++;
 			} else {

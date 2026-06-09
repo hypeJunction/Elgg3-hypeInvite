@@ -2,14 +2,14 @@
 
 elgg_gatekeeper();
 
-$guid = elgg_extract('guid', $vars);
+$guid = (int) elgg_extract('guid', $vars);
 elgg_set_page_owner_guid($guid);
 
 elgg_entity_gatekeeper($guid, 'group');
 
 $title = elgg_echo('groups:invite:title');
 
-$group = get_entity($guid);
+$group = $guid ? get_entity($guid) : null;
 if (!$group instanceof ElggGroup) {
 	elgg_register_error_message(elgg_echo('groups:noaccess'));
 	elgg_redirect_response(REFERRER);

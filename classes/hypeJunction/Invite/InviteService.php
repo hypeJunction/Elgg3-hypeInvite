@@ -73,9 +73,9 @@ class InviteService {
 	 * @throws Exception
 	 */
 	public function generateInviteCode() {
-		$invite_code = generate_random_cleartext_password();
+		$invite_code = _elgg_services()->crypto->getRandomString(32);
 		while ($this->getInviteByCode($invite_code)) {
-			$invite_code = generate_random_cleartext_password();
+			$invite_code = _elgg_services()->crypto->getRandomString(32);
 		}
 
 		return $invite_code;

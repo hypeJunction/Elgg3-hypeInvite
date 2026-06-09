@@ -31,10 +31,8 @@ class RequestInviteAction {
 
 			$invite_request->save();
 
-			$to = elgg_get_admins([
-				'callback' => function($e) {
-					return $e->guid;
-				}
+			$admins = elgg_get_admins([
+				'limit' => 0,
 			]);
 
 			$subject = elgg_echo('users:invite:request:notify:subject');
@@ -45,11 +43,19 @@ class RequestInviteAction {
 				elgg_normalize_url('admin/users/requests'),
 			]);
 
-			notify_user($to, null, $subject, $message, [
-				'action' => 'create',
-				'object' => $invite_request,
-				'url' => elgg_normalize_url('admin/users/requests'),
-			]);
+			foreach ($admins as $admin) {
+				if (!$admin instanceof \ElggUser) {
+					continue;
+				}
+
+				elgg_notify_user($admin, 'create', $invite_request, [
+					'action' => 'create',
+					'object' => $invite_request,
+					'subject' => $subject,
+					'body' => $message,
+					'url' => elgg_normalize_url('admin/users/requests'),
+				]);
+			}
 
 			return elgg_ok_response([
 				'entity' => $invite_request,

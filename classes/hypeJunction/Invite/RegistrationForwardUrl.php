@@ -38,7 +38,7 @@ class RegistrationForwardUrl {
 			$forward_url = '';
 
 			$ref = get_input('ref');
-			$entity = get_entity($ref);
+			$entity = $ref ? get_entity((int) $ref) : null;
 
 			if ($entity instanceof \ElggGroup) {
 				if (elgg_get_plugin_setting('groups_accept_on_register', 'hypeInvite')) {
