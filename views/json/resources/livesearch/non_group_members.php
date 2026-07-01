@@ -32,7 +32,7 @@ $options = [
 ];
 
 if (get_input('friends_only', false)) {
-	$target_guid = get_input('match_target');
+	$target_guid = (int) get_input('match_target');
 	if ($target_guid) {
 		$target = get_entity($target_guid);
 	} else {

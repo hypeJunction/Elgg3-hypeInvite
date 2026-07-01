@@ -42,17 +42,17 @@ class GenerateRegistrationUrl {
 
 		$friend_guid = $event->getParam('friend_guid');
 		if ($friend_guid) {
-			add_entity_relationship($user_invite->guid, 'invited_by', $friend_guid);
+			$user_invite->addRelationship((int) $friend_guid, 'invited_by');
 		}
 
 		if (!$user_invite->invite_codes) {
-			$invite_code = generate_random_cleartext_password();
+			$invite_code = _elgg_services()->crypto->getRandomString(32);
 
 			$svc = elgg()->{'users.invites'};
 			/* @var $svc \hypeJunction\Invite\InviteService */
 
 			while ($svc->getInviteByCode($invite_code)) {
-				$invite_code = generate_random_cleartext_password();
+				$invite_code = _elgg_services()->crypto->getRandomString(32);
 			}
 
 			$user_invite->invite_codes = $invite_code;

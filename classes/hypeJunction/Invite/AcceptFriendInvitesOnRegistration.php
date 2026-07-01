@@ -60,7 +60,7 @@ class AcceptFriendInvitesOnRegistration {
 					$inviter->addFriend($user->guid, $add_to_river);
 					$user->addFriend($inviter->guid, $add_to_river);
 				} else {
-					add_entity_relationship($inviter->guid, $relationship, $user->guid);
+					$inviter->addRelationship($user->guid, $relationship);
 				}
 			}
 		});

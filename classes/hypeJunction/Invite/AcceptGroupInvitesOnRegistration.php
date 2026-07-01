@@ -47,7 +47,7 @@ class AcceptGroupInvitesOnRegistration {
 			$accept_on_register = elgg_get_plugin_setting('groups_accept_on_register', 'hypeInvite');
 
 			foreach ($groups as $group) {
-				add_entity_relationship($group->guid, 'invited', $user->guid);
+				$group->addRelationship($user->guid, 'invited');
 
 				if (is_callable('\AU\SubGroups\get_parent_group')) {
 					// AU Subgroups is unable to resolve invites properly
@@ -55,7 +55,7 @@ class AcceptGroupInvitesOnRegistration {
 					$parent = $group;
 
 					while ($parent = \AU\SubGroups\get_parent_group($parent)) {
-						add_entity_relationship($parent->guid, 'invited', $user->guid);
+						$parent->addRelationship($user->guid, 'invited');
 					}
 				}
 
@@ -72,10 +72,13 @@ class AcceptGroupInvitesOnRegistration {
 						$params = [
 							'action' => 'add_membership',
 							'object' => $group,
+							'subject' => $subject,
+							'body' => $body,
 							'url' => $group->getURL(),
 						];
 
-						notify_user($user->guid, $group->owner_guid, $subject, $body, $params);
+						$owner = $group->owner_guid ? get_entity((int) $group->owner_guid) : null;
+						elgg_notify_user($user, 'add_membership', $group, $params, $owner);
 					}
 				}
 			}
