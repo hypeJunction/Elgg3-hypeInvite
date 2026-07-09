@@ -1,8 +1,8 @@
 <?php
 
-$required = (bool) elgg_get_plugin_setting('invite_only_network', 'hypeInvite');
-$show_field = elgg_get_plugin_setting('invite_code_register_form', 'hypeInvite', true);
-$requests_allowed = (bool) elgg_get_plugin_setting('request_invitation', 'hypeInvite', $required);
+$required = (bool) elgg_get_plugin_setting('invite_only_network', 'hypeinvite');
+$show_field = elgg_get_plugin_setting('invite_code_register_form', 'hypeinvite', true);
+$requests_allowed = (bool) elgg_get_plugin_setting('request_invitation', 'hypeinvite', $required);
 
 $help = '';
 if ($requests_allowed && $required) {

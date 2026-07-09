@@ -7,7 +7,7 @@ if (!$entity instanceof ElggGroup) {
 
 $tabs = [];
 
-if (elgg_get_plugin_setting('groups_users_tab', 'hypeInvite', false)) {
+if (elgg_get_plugin_setting('groups_users_tab', 'hypeinvite', false)) {
 	$tabs['users'] = [
 		'text' => elgg_echo('groups:invite:users'),
 		'selected' => true,
@@ -21,7 +21,7 @@ if (elgg_get_plugin_setting('groups_users_tab', 'hypeInvite', false)) {
 	];
 }
 
-if (elgg_get_plugin_setting('groups_emails_tab', 'hypeInvite', false) && elgg_get_config('allow_registration')) {
+if (elgg_get_plugin_setting('groups_emails_tab', 'hypeinvite', false) && elgg_get_config('allow_registration')) {
 	$tabs['emails'] = [
 		'text' => elgg_echo('groups:invite:emails'),
 		'content' => elgg_view('forms/groups/invite/emails', $vars),
@@ -48,7 +48,7 @@ if ($entity->canEdit()) {
 	]);
 }
 
-if ($entity->canEdit() && (!elgg_get_plugin_setting('groups_require_confirmation', 'hypeInvite') || elgg_is_admin_logged_in())) {
+if ($entity->canEdit() && (!elgg_get_plugin_setting('groups_require_confirmation', 'hypeinvite') || elgg_is_admin_logged_in())) {
 	echo elgg_view_field([
 		'#type' => 'radio',
 		'name' => 'invite_action',

@@ -20,7 +20,7 @@ class RegistrationMiddleware {
 	 */
 	public function __invoke(Request $request) {
 
-		if (!elgg_get_plugin_setting('invite_only_network', 'hypeInvite')) {
+		if (!elgg_get_plugin_setting('invite_only_network', 'hypeinvite')) {
 			return;
 		}
 
@@ -28,7 +28,7 @@ class RegistrationMiddleware {
 		$code = $request->getParam('invitation_code');
 
 		if (empty($email) || empty($code)) {
-			if (elgg_get_plugin_setting('request_invitation', 'hypeInvite')) {
+			if (elgg_get_plugin_setting('request_invitation', 'hypeinvite')) {
 				$redirect_url = elgg_generate_url('invite:request');
 				$exception = new HttpException('', ELGG_HTTP_FORBIDDEN);
 				$exception->setRedirectUrl($redirect_url);

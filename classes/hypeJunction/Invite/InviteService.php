@@ -91,7 +91,7 @@ class InviteService {
 	 * @throws Exception
 	 */
 	public function validateInviteCode($email, $invite_code) {
-		$invitation_codes = elgg_get_plugin_setting('invitation_codes', 'hypeInvite');
+		$invitation_codes = elgg_get_plugin_setting('invitation_codes', 'hypeinvite');
 		if ($invitation_codes) {
 			$invitation_codes = explode(PHP_EOL, $invitation_codes);
 			array_walk($invitation_codes, 'trim');
