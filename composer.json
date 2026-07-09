@@ -31,7 +31,7 @@
   },
   "autoload": {
     "psr-4": {
-      "hypeJunction\\\\Invite\\\\": "classes/hypeJunction/Invite/"
+      "hypeJunction\\Invite\\": "classes/hypeJunction/Invite/"
     }
   },
   "config": {
